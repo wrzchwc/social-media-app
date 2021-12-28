@@ -1,8 +1,9 @@
 import React, {useState} from "react";
-import {AppBar, Tab, Tabs, Toolbar, Typography, useScrollTrigger} from "@mui/material";
+import {AppBar, Button, Tab, Tabs, Toolbar, Typography, useScrollTrigger} from "@mui/material";
 import {makeStyles} from "@mui/styles";
 import LoginIcon from '@mui/icons-material/Login';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+import {Link} from "react-router-dom";
 
 const ElevationScroll = props => {
     const {children} = props;
@@ -42,10 +43,19 @@ const Header = () => {
             <ElevationScroll>
                 <AppBar position="fixed">
                     <Toolbar sx={{height: "5em"}}>
-                        <Typography color="secondary" sx={{fontFamily: "'Licorice', cursive", fontSize: "3em"}}>
+                        <Typography
+                            color="secondary"
+                            component={Link}
+                            sx={{
+                                fontFamily: "'Licorice', cursive",
+                                fontSize: "3em",
+                                textDecoration: "none",
+                                boxShadow: "none"
+                            }}
+                            to="/"
+                        >
                             Social Media App
                         </Typography>
-
                         <Tabs
                             onChange={handleChange}
                             indicatorColor="primary"
@@ -55,15 +65,19 @@ const Header = () => {
                         >
                             <Tab
                                 className={classes.tab}
+                                component={Link}
                                 icon={<LoginIcon/>}
                                 iconPosition="end"
                                 label="Login"
+                                to="/api/users/signin"
                             />
                             <Tab
                                 className={classes.tab}
+                                component={Link}
                                 icon={<AppRegistrationIcon/>}
                                 iconPosition="end"
                                 label="Register"
+                                to="/api/users/signup"
                             />
                         </Tabs>
                     </Toolbar>
