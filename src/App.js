@@ -1,7 +1,12 @@
 import React from "react";
+import Header from "./ui/Header";
 
 const App = () => {
-  return <div>Social Media App</div>;
+  return (
+      <>
+        <Header/>
+      </>
+  );
 }
 
 export default App;
