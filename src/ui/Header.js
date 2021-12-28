@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {AppBar, Button, Tab, Tabs, Toolbar, Typography, useScrollTrigger} from "@mui/material";
+import {AppBar, Button, Stack, Tab, Tabs, Toolbar, Typography, useScrollTrigger} from "@mui/material";
 import {makeStyles} from "@mui/styles";
 import LoginIcon from '@mui/icons-material/Login';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
@@ -50,36 +50,34 @@ const Header = () => {
                                 fontFamily: "'Licorice', cursive",
                                 fontSize: "3em",
                                 textDecoration: "none",
-                                boxShadow: "none"
                             }}
                             to="/"
                         >
                             Social Media App
                         </Typography>
-                        <Tabs
-                            onChange={handleChange}
-                            indicatorColor="primary"
-                            sx={{marginLeft: "auto"}}
-                            textColor="secondary"
-                            value={value}
-                        >
-                            <Tab
+                        <Stack direction="row" spacing={2} sx={{marginLeft: "auto"}}>
+                            <Button
                                 className={classes.tab}
+                                color="secondary"
                                 component={Link}
-                                icon={<LoginIcon/>}
-                                iconPosition="end"
-                                label="Login"
+                                endIcon={<LoginIcon/>}
+                                size="large"
                                 to="/api/users/signin"
-                            />
-                            <Tab
+                            >
+                                Login
+                            </Button>
+                            <Button
                                 className={classes.tab}
+                                color="secondary"
                                 component={Link}
-                                icon={<AppRegistrationIcon/>}
-                                iconPosition="end"
-                                label="Register"
+                                endIcon={<AppRegistrationIcon/>}
+                                size="large"
                                 to="/api/users/signup"
-                            />
-                        </Tabs>
+                                variant="text"
+                            >
+                                Register
+                            </Button>
+                        </Stack>
                     </Toolbar>
                 </AppBar>
             </ElevationScroll>
