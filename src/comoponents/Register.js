@@ -3,12 +3,11 @@ import {connect} from "react-redux";
 import {Field, reduxForm} from "redux-form";
 import {signUp} from "../actions";
 
-class Register extends React.Component {
-    onSubmit = formValues => {
-        this.props.signUp(formValues);
+const Register = props => {
+    const onSubmit = formValues => {
+        props.signUp(formValues);
     }
-
-    renderInput = ({input, placeholder, secret}) => {
+    const renderInput = ({input, placeholder, secret}) => {
         return (
             <div>
                 <input
@@ -21,47 +20,45 @@ class Register extends React.Component {
         );
     }
 
-    render() {
-        return (
-            <div>
-                <h2>Register</h2>
-                <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
-                    <Field
-                        component={this.renderInput}
-                        placeholder="username"
-                        name="username"
-                        secret={false}
-                    />
-                    <Field
-                        component={this.renderInput}
-                        placeholder="password"
-                        name="password"
-                        secret={true}
-                    />
-                    <Field
-                        component={this.renderInput}
-                        placeholder="name"
-                        name="name"
-                        secret={false}
-                    />
-                    <Field
-                        component={this.renderInput}
-                        placeholder="surname"
-                        name="surname"
-                        secret={false}
-                    />
-                    <Field
-                        component={this.renderInput}
-                        placeholder="email"
-                        name="email"
-                        secret={false}
-                    />
-                    <p>birthdate</p>
-                    <button>REGISTER</button>
-                </form>
-            </div>
-        );
-    }
+    return (
+        <div>
+            <h2>Register</h2>
+            <form onSubmit={props.handleSubmit(onSubmit)}>
+                <Field
+                    component={renderInput}
+                    placeholder="username"
+                    name="username"
+                    secret={false}
+                />
+                <Field
+                    component={renderInput}
+                    placeholder="password"
+                    name="password"
+                    secret={true}
+                />
+                <Field
+                    component={renderInput}
+                    placeholder="name"
+                    name="name"
+                    secret={false}
+                />
+                <Field
+                    component={renderInput}
+                    placeholder="surname"
+                    name="surname"
+                    secret={false}
+                />
+                <Field
+                    component={renderInput}
+                    placeholder="email"
+                    name="email"
+                    secret={false}
+                />
+                <p>birthdate</p>
+                <button>REGISTER</button>
+            </form>
+        </div>
+    );
 
 
 }
