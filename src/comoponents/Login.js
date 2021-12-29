@@ -3,9 +3,8 @@ import {Field, reduxForm} from "redux-form";
 import {connect} from "react-redux";
 import {signIn} from "../actions";
 
-
-class Login extends React.Component {
-    renderInput = ({input, placeholder, secret}) => {
+const Login = props => {
+    const renderInput = ({input, placeholder, secret}) => {
         return (
             <div>
                 <input
@@ -18,32 +17,32 @@ class Login extends React.Component {
         );
     }
 
-    onSubmit = formValues => {
-        this.props.signIn(formValues);
+    const onSubmit = formValues => {
+        props.signIn(formValues);
     }
 
-    render() {
-        return (
-            <div>
-                <h2>Login</h2>
-                <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
-                    <Field
-                        component={this.renderInput}
-                        placeholder="username"
-                        name="username"
-                        secret={false}
-                    />
-                    <Field
-                        component={this.renderInput}
-                        placeholder="password"
-                        name="password"
-                        secret={true}
-                    />
-                    <button>LOGIN</button>
-                </form>
-            </div>
-        );
-    }
+
+    return (
+        <div>
+            <h2>Login</h2>
+            <form onSubmit={props.handleSubmit(onSubmit)}>
+                <Field
+                    component={renderInput}
+                    placeholder="username"
+                    name="username"
+                    secret={false}
+                />
+                <Field
+                    component={renderInput}
+                    placeholder="password"
+                    name="password"
+                    secret={true}
+                />
+                <button>LOGIN</button>
+            </form>
+        </div>
+    );
+
 
 }
 
