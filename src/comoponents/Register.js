@@ -8,11 +8,15 @@ class Register extends React.Component {
         this.props.signUp(formValues);
     }
 
-    renderInput = ({input, label, secret}) => {
+    renderInput = ({input, placeholder, secret}) => {
         return (
             <div>
-                <label>{label}</label>
-                <input {...input} autoComplete="off"  type={`${secret ? 'password' : 'text'}`}/>
+                <input
+                    {...input}
+                    autoComplete="off"
+                    placeholder={placeholder}
+                    type={`${secret ? 'password' : 'text'}`}
+                />
             </div>
         );
     }
@@ -24,37 +28,37 @@ class Register extends React.Component {
                 <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
                     <Field
                         component={this.renderInput}
-                        label="username"
+                        placeholder="username"
                         name="username"
                         secret={false}
                     />
                     <Field
                         component={this.renderInput}
-                        label="password"
+                        placeholder="password"
                         name="password"
                         secret={true}
                     />
                     <Field
                         component={this.renderInput}
-                        label="name"
+                        placeholder="name"
                         name="name"
                         secret={false}
                     />
                     <Field
                         component={this.renderInput}
-                        label="surname"
+                        placeholder="surname"
                         name="surname"
                         secret={false}
                     />
                     <Field
                         component={this.renderInput}
-                        label="email"
+                        placeholder="email"
                         name="email"
                         secret={false}
                     />
-                    <label>birthdate</label>
+                    <p>birthdate</p>
+                    <button>REGISTER</button>
                 </form>
-                <button>REGISTER</button>
             </div>
         );
     }

@@ -5,11 +5,15 @@ import {signIn} from "../actions";
 
 
 class Login extends React.Component {
-    renderInput = ({input, label, secret}) => {
+    renderInput = ({input, placeholder, secret}) => {
         return (
             <div>
-                <label>{label}</label>
-                <input {...input} autoComplete="off" type={`${secret ? 'password' : 'text'}`}/>
+                <input
+                    {...input}
+                    autoComplete="off"
+                    placeholder={placeholder}
+                    type={`${secret ? 'password' : 'text'}`}
+                />
             </div>
         );
     }
@@ -25,17 +29,17 @@ class Login extends React.Component {
                 <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
                     <Field
                         component={this.renderInput}
-                        label="username"
+                        placeholder="username"
                         name="username"
                         secret={false}
                     />
                     <Field
                         component={this.renderInput}
-                        label="password"
+                        placeholder="password"
                         name="password"
                         secret={true}
                     />
-                    <button>LOG IN</button>
+                    <button>LOGIN</button>
                 </form>
             </div>
         );

@@ -17,7 +17,7 @@ export const signUp = formValues => async dispatch => {
             password: formValues.password,
             name: formValues.name,
             surname: formValues.surname,
-            dateOfBirth: JSON.stringify(new Date()),
+            dateOfBirth: new Date(),
             email: formValues.email
         }
     );
