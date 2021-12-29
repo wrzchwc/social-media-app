@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "./ui/Header";
+import Header from "./ui/header/Header";
 import {ThemeProvider} from "@mui/material";
 import theme from "./ui/Theme"
 import {BrowserRouter, Route, Routes} from "react-router-dom";

@@ -29,7 +29,7 @@ const Login = props => {
 
     return (
         <div>
-            <h2>Login</h2>
+            <h2>Log in</h2>
             <form onSubmit={props.handleSubmit(onSubmit)}>
                 <Field
                     component={renderInput}
@@ -43,7 +43,7 @@ const Login = props => {
                     name="password"
                     secret={true}
                 />
-                <button>LOGIN</button>
+                <button>LOG IN</button>
             </form>
         </div>
     );

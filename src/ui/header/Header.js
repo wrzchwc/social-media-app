@@ -1,9 +1,8 @@
 import React from "react";
-import {AppBar, Button, Stack, Toolbar, Typography, useScrollTrigger} from "@mui/material";
+import {AppBar, Toolbar, Typography, useScrollTrigger} from "@mui/material";
 import {makeStyles} from "@mui/styles";
-import LoginIcon from '@mui/icons-material/Login';
-import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import {Link} from "react-router-dom";
+import GuestButtons from "./GuestButtons";
 
 const ElevationScroll = props => {
     const {children} = props;
@@ -50,29 +49,7 @@ const Header = () => {
                         >
                             Social Media App
                         </Typography>
-                        <Stack direction="row" spacing={2} sx={{marginLeft: "auto"}}>
-                            <Button
-                                className={classes.tab}
-                                color="secondary"
-                                component={Link}
-                                endIcon={<LoginIcon/>}
-                                size="large"
-                                to="/api/users/signin"
-                            >
-                                Login
-                            </Button>
-                            <Button
-                                className={classes.tab}
-                                color="secondary"
-                                component={Link}
-                                endIcon={<AppRegistrationIcon/>}
-                                size="large"
-                                to="/api/users/signup"
-                                variant="text"
-                            >
-                                Register
-                            </Button>
-                        </Stack>
+                        <GuestButtons classes={classes}/>
                     </Toolbar>
                 </AppBar>
             </ElevationScroll>
