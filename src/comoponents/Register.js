@@ -1,12 +1,16 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import {Field, reduxForm} from "redux-form";
 import {signUp} from "../actions";
+import {useNavigate} from "react-router-dom";
 
 const Register = props => {
+    const navigate = useNavigate();
+
     const onSubmit = formValues => {
-        props.signUp(formValues);
+        props.signUp(formValues, () => navigate('/api/users/signin'));
     }
+
     const renderInput = ({input, placeholder, secret}) => {
         return (
             <div>
@@ -59,11 +63,6 @@ const Register = props => {
             </form>
         </div>
     );
-
-
 }
 
-export default connect(
-    null,
-    {signUp}
-)(reduxForm({form: 'registerForm'})(Register));
+export default connect(null, {signUp})(reduxForm({form: 'registerForm'})(Register));

@@ -6,5 +6,5 @@ import registerReducer from "./registerReducer";
 export default combineReducers({
     token: loginReducer,
     form: formReducer,
-    user: registerReducer
+    registration: registerReducer
 })

@@ -1,12 +1,17 @@
-import {SIGN_UP} from "../actions/types";
+import {SIGN_UP, CLEAR_RECENT_REGISTRATION} from "../actions/types";
 
 const INITIAL_STATE = {
-    recentlyRegisteredUser: null
+    username: '',
+    password: '',
 };
 
 export default (state = INITIAL_STATE, action) => {
-    if (action.type === SIGN_UP) {
-        return {...state, recentlyRegisteredUser: action.payload}
+    switch (action.type) {
+        case SIGN_UP:
+            return {...state, username: action.payload.username, password: action.payload.password}
+        case CLEAR_RECENT_REGISTRATION:
+            return {...state, username: '', password: ''}
+        default:
+            return state;
     }
-    return state;
 }

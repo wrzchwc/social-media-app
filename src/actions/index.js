@@ -1,5 +1,5 @@
 import social from "../api/social";
-import {SIGN_IN, SIGN_UP} from "./types";
+import {CLEAR_RECENT_REGISTRATION, SIGN_IN, SIGN_UP} from "./types";
 
 export const signIn = formValues => async dispatch => {
     try {
@@ -14,18 +14,26 @@ export const signIn = formValues => async dispatch => {
     }
 }
 
-export const signUp = formValues => async dispatch => {
-    const response = await social.post(
-        '/api/users/signup',
-        {
-            username: formValues.username,
-            password: formValues.password,
-            name: formValues.name,
-            surname: formValues.surname,
-            dateOfBirth: new Date(),
-            email: formValues.email
-        }
-    );
+export const signUp = (formValues, callback) => async dispatch => {
+    try{
+        const response = await social.post(
+            '/api/users/signup',
+            {
+                username: formValues.username,
+                password: formValues.password,
+                name: formValues.name,
+                surname: formValues.surname,
+                dateOfBirth: new Date(),
+                email: formValues.email
+            }
+        );
+        dispatch({type: SIGN_UP, payload: {username: formValues.username, password: formValues.password}});
+        callback();
+    } catch (e) {
+        console.log('Registration issue!')
+    }
+}
 
-    dispatch({type: SIGN_UP, payload: response.data});
+export const clearRecentRegistration = () => {
+    return {type: CLEAR_RECENT_REGISTRATION};
 }

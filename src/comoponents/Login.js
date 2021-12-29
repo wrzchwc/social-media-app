@@ -1,9 +1,15 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Field, reduxForm} from "redux-form";
 import {connect} from "react-redux";
-import {signIn} from "../actions";
+import {clearRecentRegistration, signIn} from "../actions";
 
 const Login = props => {
+    useEffect(() => {
+        return () => {
+            props.clearRecentRegistration()
+        }
+    }, [])
+
     const renderInput = ({input, placeholder, secret}) => {
         return (
             <div>
@@ -20,7 +26,6 @@ const Login = props => {
     const onSubmit = formValues => {
         props.signIn(formValues);
     }
-
 
     return (
         <div>
@@ -42,8 +47,16 @@ const Login = props => {
             </form>
         </div>
     );
-
-
 }
 
-export default connect(null, {signIn})(reduxForm({form: 'loginForm'})(Login));
+const mapStateToProps = state => {
+    return {
+        initialValues: {
+            username: state.recentRegistration.username,
+            password: state.recentRegistration.password
+        }
+    }
+};
+
+export default connect(mapStateToProps, {signIn, clearRecentRegistration})
+(reduxForm({form: 'loginForm'})(Login));
