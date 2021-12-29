@@ -52,8 +52,8 @@ const Login = props => {
 const mapStateToProps = state => {
     return {
         initialValues: {
-            username: state.recentRegistration.username,
-            password: state.recentRegistration.password
+            username: state.registration.username,
+            password: state.registration.password
         }
     }
 };

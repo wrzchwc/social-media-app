@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {AppBar, Button, Stack, Tab, Tabs, Toolbar, Typography, useScrollTrigger} from "@mui/material";
+import React from "react";
+import {AppBar, Button, Stack, Toolbar, Typography, useScrollTrigger} from "@mui/material";
 import {makeStyles} from "@mui/styles";
 import LoginIcon from '@mui/icons-material/Login';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
@@ -32,11 +32,6 @@ const useStyles = makeStyles(theme => ({
 
 const Header = () => {
     const classes = useStyles();
-    const [value, setValue] = useState(0);
-
-    const handleChange = (e, value) => {
-        setValue(value);
-    }
 
     return (
         <>
