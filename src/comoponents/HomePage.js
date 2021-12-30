@@ -1,12 +1,26 @@
-import React from "react";
+import React, {useEffect} from "react";
+import {connect} from "react-redux";
+import {useNavigate} from "react-router-dom";
 
-const HomePage = () => {
-  return (
-      <div style={{float: "right"}}>
-          Hi friend!
-          Click login or register button ☝🏼
-      </div>
-  );
+const HomePage = props => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (props.isSignedIn) {
+            navigate('/api/posts')
+        }
+    })
+
+    return (
+        <div style={{float: "right"}}>
+            Hi friend!
+            Click login or register button ☝🏼
+        </div>
+    );
 }
 
-export default HomePage;
+const mapStateToProps = state => {
+    return {isSignedIn: state.authentication.isSignedIn};
+}
+
+export default connect(mapStateToProps)(HomePage);

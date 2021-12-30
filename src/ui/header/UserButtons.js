@@ -19,7 +19,7 @@ const UserButtons = props => {
                 component={Link}
                 endIcon={<PostAddIcon/>}
                 size="large"
-                to="/"
+                to="/api/posts/add"
                 variant="text"
             >
                 Add post

@@ -8,6 +8,7 @@ import Login from "./comoponents/Login";
 import Register from "./comoponents/Register";
 import Wall from "./comoponents/Wall";
 import UserProfile from "./comoponents/UserProfile";
+import PostAdd from "./comoponents/PostAdd";
 
 const App = () => {
     return (
@@ -20,6 +21,7 @@ const App = () => {
                     <Route path="/api/users/signup" element={<Register/>}/>
                     <Route path='/api/posts' element={<Wall/>}/>
                     <Route path='/api/users/me' element={<UserProfile/>}/>
+                    <Route path='/api/posts/add' element={<PostAdd/>}/>
                 </Routes>
             </BrowserRouter>
         </ThemeProvider>
