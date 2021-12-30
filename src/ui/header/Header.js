@@ -1,7 +1,9 @@
 import React from "react";
+import {connect} from "react-redux";
 import {AppBar, Toolbar, Typography, useScrollTrigger} from "@mui/material";
 import {makeStyles} from "@mui/styles";
 import {Link} from "react-router-dom";
+import UserButtons from "./UserButtons";
 import GuestButtons from "./GuestButtons";
 
 const ElevationScroll = props => {
@@ -29,8 +31,10 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-const Header = () => {
+const Header = props => {
     const classes = useStyles();
+    const buttons = props.isSignedIn ? <UserButtons classes={classes}/> : <GuestButtons classes={classes}/>
+    const typographyLink = props.isSignedIn ? '/api/users/me' : '/';
 
     return (
         <>
@@ -45,11 +49,11 @@ const Header = () => {
                                 fontSize: "3em",
                                 textDecoration: "none",
                             }}
-                            to="/"
+                            to={typographyLink}
                         >
                             Social Media App
                         </Typography>
-                        <GuestButtons classes={classes}/>
+                        {buttons}
                     </Toolbar>
                 </AppBar>
             </ElevationScroll>
@@ -59,4 +63,8 @@ const Header = () => {
 
 }
 
-export default Header;
+const mapStateToProps = state => {
+    return {isSignedIn: state.authentication.isSignedIn};
+};
+
+export default connect(mapStateToProps)(Header);

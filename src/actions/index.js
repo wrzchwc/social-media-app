@@ -1,5 +1,5 @@
 import social from "../api/social";
-import {CLEAR_RECENT_REGISTRATION, SIGN_IN, SIGN_UP} from "./types";
+import {CLEAR_RECENT_REGISTRATION, SIGN_IN, SIGN_OUT, SIGN_UP} from "./types";
 
 export const signIn = formValues => async dispatch => {
     try {
@@ -36,4 +36,10 @@ export const signUp = (formValues, callback) => async dispatch => {
 
 export const clearRecentRegistration = () => {
     return {type: CLEAR_RECENT_REGISTRATION};
+}
+
+export const signOut = callback => {
+    localStorage.removeItem('token');
+    callback();
+    return {type: SIGN_OUT};
 }
