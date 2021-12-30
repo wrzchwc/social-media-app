@@ -1,7 +1,7 @@
 import social from "../api/social";
 import {CLEAR_RECENT_REGISTRATION, SIGN_IN, SIGN_OUT, SIGN_UP} from "./types";
 
-export const signIn = formValues => async dispatch => {
+export const signIn = (formValues, callback) => async dispatch => {
     try {
         const response = await social.post(
             '/api/users/signin',
@@ -9,6 +9,7 @@ export const signIn = formValues => async dispatch => {
         );
         dispatch({type: SIGN_IN, payload: response.data});
         localStorage.setItem('token', response.data);
+        callback();
     } catch (e) {
         console.log('Login issue!')
     }

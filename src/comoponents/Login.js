@@ -2,8 +2,11 @@ import React, {useEffect} from "react";
 import {Field, reduxForm} from "redux-form";
 import {connect} from "react-redux";
 import {clearRecentRegistration, signIn} from "../actions";
+import {useNavigate} from "react-router-dom";
 
 const Login = props => {
+    const navigate = useNavigate();
+
     useEffect(() => {
         return () => {
             props.clearRecentRegistration()
@@ -24,7 +27,7 @@ const Login = props => {
     }
 
     const onSubmit = formValues => {
-        props.signIn(formValues);
+        props.signIn(formValues, () => navigate('/api/posts'));
     }
 
     return (

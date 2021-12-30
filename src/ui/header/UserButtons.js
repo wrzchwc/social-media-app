@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom';
 import {Avatar, Button, IconButton, Stack} from "@mui/material";
 import LogoutIcon from '@mui/icons-material/Logout';
 import PostAddIcon from '@mui/icons-material/PostAdd';
+import Theme from "../Theme";
 
 const UserButtons = props => {
     const navigate = useNavigate();
@@ -23,11 +24,26 @@ const UserButtons = props => {
             >
                 Add post
             </Button>
-            <Avatar>JW</Avatar>
+            <IconButton component={Link} size="large" to="/api/users/me">
+                <Avatar
+                    sx={{
+                        bgcolor: `${Theme.palette.common.cyan}`,
+                        color: `${Theme.palette.common.violet}`,
+                        height: "35px",
+                        width: "35px"
+                    }}
+                >
+                    JW
+                </Avatar>
+            </IconButton>
             <IconButton
                 color="secondary"
-                onClick={() => {props.signOut(() => navigate('/'))}}
+                component={Link}
+                onClick={() => {
+                    props.signOut(() => navigate('/'))
+                }}
                 size="large"
+                to="/"
             >
                 <LogoutIcon/>
             </IconButton>

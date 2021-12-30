@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
 const Header = props => {
     const classes = useStyles();
     const buttons = props.isSignedIn ? <UserButtons classes={classes}/> : <GuestButtons classes={classes}/>
-    const typographyLink = props.isSignedIn ? '/api/users/me' : '/';
+    const typographyLink = props.isSignedIn ? '/api/posts' : '/';
 
     return (
         <>

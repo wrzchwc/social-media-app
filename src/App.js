@@ -6,6 +6,8 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import HomePage from "./comoponents/HomePage"
 import Login from "./comoponents/Login";
 import Register from "./comoponents/Register";
+import Wall from "./comoponents/Wall";
+import UserProfile from "./comoponents/UserProfile";
 
 const App = () => {
     return (
@@ -16,6 +18,8 @@ const App = () => {
                     <Route path="/" element={<HomePage/>}/>
                     <Route path="/api/users/signin" element={<Login/>}/>
                     <Route path="/api/users/signup" element={<Register/>}/>
+                    <Route path='/api/posts' element={<Wall/>}/>
+                    <Route path='/api/users/me' element={<UserProfile/>}/>
                 </Routes>
             </BrowserRouter>
         </ThemeProvider>
