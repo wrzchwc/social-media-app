@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {Field, reduxForm} from "redux-form";
 import {connect} from "react-redux";
-import {clearRecentRegistration, signIn} from "../../actions";
+import {clearRecentRegistration, signIn} from "../actions";
 import {useNavigate} from "react-router-dom";
 
 const Login = props => {

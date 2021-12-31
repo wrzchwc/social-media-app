@@ -31,10 +31,9 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-const Header = props => {
+const Header = ({isSignedIn}) => {
     const classes = useStyles();
-    const buttons = props.isSignedIn ? <UserButtons classes={classes}/> : <GuestButtons classes={classes}/>
-    const typographyLink = props.isSignedIn ? '/api/posts' : '/';
+    const buttons = isSignedIn ? <UserButtons classes={classes}/> : <GuestButtons classes={classes}/>
 
     return (
         <>
@@ -49,7 +48,7 @@ const Header = props => {
                                 fontSize: "3em",
                                 textDecoration: "none",
                             }}
-                            to={typographyLink}
+                            to="/"
                         >
                             Social Media App
                         </Typography>
