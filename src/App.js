@@ -1,31 +1,58 @@
 import React from "react";
-import Header from "./ui/header/Header";
-import {ThemeProvider} from "@mui/material";
+import {connect} from "react-redux";
+import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import theme from "./ui/Theme"
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import Header from "./ui/header/Header";
+import Login from "./comoponents/authentication/Login";
+import PostAdd from "./comoponents/posts/PostAdd";
+import Wall from "./comoponents/posts/Wall";
 import HomePage from "./comoponents/HomePage"
-import Login from "./comoponents/Login";
 import Register from "./comoponents/Register";
-import Wall from "./comoponents/Wall";
 import UserProfile from "./comoponents/UserProfile";
-import PostAdd from "./comoponents/PostAdd";
+import {ThemeProvider} from "@mui/material";
+import RequireAuth from "./comoponents/authentication/RequireAuth";
 
-const App = () => {
+const App = ({isSignedIn}) => {
     return (
         <ThemeProvider theme={theme}>
             <BrowserRouter>
                 <Header/>
                 <Routes>
-                    <Route path="/" element={<HomePage/>}/>
+                    <Route path="/" element={!isSignedIn ? <HomePage/> : <Navigate to="/api/posts"/>}/>
                     <Route path="/api/users/signin" element={<Login/>}/>
                     <Route path="/api/users/signup" element={<Register/>}/>
-                    <Route path='/api/posts' element={<Wall/>}/>
-                    <Route path='/api/users/me' element={<UserProfile/>}/>
-                    <Route path='/api/posts/add' element={<PostAdd/>}/>
+                    <Route
+                        path='/api/posts'
+                        element={
+                            <RequireAuth isSignedIn={isSignedIn} redirection={'/'}>
+                                <Wall/>
+                            </RequireAuth>
+                        }
+                    />
+                    <Route
+                        path='/api/users/me'
+                        element={
+                            <RequireAuth isSignedIn={isSignedIn} redirection={'/'}>
+                                <UserProfile/>
+                            </RequireAuth>
+                        }
+                    />
+                    <Route
+                        path='/api/posts/add'
+                        element={
+                            <RequireAuth isSignedIn={isSignedIn} redirection={'/'}>
+                                <PostAdd/>
+                            </RequireAuth>
+                        }
+                    />
                 </Routes>
             </BrowserRouter>
         </ThemeProvider>
     );
 }
 
-export default App;
+const mapStateToProps = state => {
+    return {isSignedIn: state.authentication.isSignedIn}
+}
+
+export default connect(mapStateToProps)(App);

@@ -1,16 +1,6 @@
-import React, {useEffect} from "react";
-import {connect} from "react-redux";
-import {useNavigate} from "react-router-dom";
+import React from "react";
 
-const HomePage = props => {
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        if (props.isSignedIn) {
-            navigate('/api/posts')
-        }
-    })
-
+const HomePage = () => {
     return (
         <div style={{float: "right"}}>
             Hi friend!
@@ -19,8 +9,4 @@ const HomePage = props => {
     );
 }
 
-const mapStateToProps = state => {
-    return {isSignedIn: state.authentication.isSignedIn};
-}
-
-export default connect(mapStateToProps)(HomePage);
+export default HomePage;
