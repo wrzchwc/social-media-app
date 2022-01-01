@@ -1,5 +1,11 @@
 import social from "../api/social";
-import {CLEAR_RECENT_REGISTRATION, SIGN_IN, SIGN_OUT, SIGN_UP} from "./types";
+import {
+    CLEAR_RECENT_REGISTRATION,
+    FETCH_CURRENT_USER,
+    SIGN_IN,
+    SIGN_OUT,
+    SIGN_UP
+} from "./types";
 
 export const signIn = (formValues, callback) => async dispatch => {
     try {
@@ -7,8 +13,8 @@ export const signIn = (formValues, callback) => async dispatch => {
             '/api/users/signin',
             {username: formValues.username, password: formValues.password}
         );
-        dispatch({type: SIGN_IN, payload: response.data});
         localStorage.setItem('token', response.data);
+        dispatch({type: SIGN_IN, payload: response.data});
         callback();
     } catch (e) {
         console.log('Login issue!')
@@ -16,8 +22,8 @@ export const signIn = (formValues, callback) => async dispatch => {
 }
 
 export const signUp = (formValues, callback) => async dispatch => {
-    try{
-        const response = await social.post(
+    try {
+        await social.post(
             '/api/users/signup',
             {
                 username: formValues.username,
@@ -32,6 +38,18 @@ export const signUp = (formValues, callback) => async dispatch => {
         callback();
     } catch (e) {
         console.log('Registration issue!')
+    }
+}
+
+
+export const fetchSignedUser = () => async dispatch => {
+    try {
+        const response = await social.get('/api/users/me',
+            {headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}}
+        );
+        dispatch({type: FETCH_CURRENT_USER, payload: response.data});
+    } catch (e) {
+        console.log('Fetching signed user failed!');
     }
 }
 

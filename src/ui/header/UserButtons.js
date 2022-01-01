@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {signOut} from "../../actions";
+import {signOut, fetchSignedUser} from "../../actions";
 import {Link} from 'react-router-dom';
 import {Avatar, Button, IconButton, Stack} from "@mui/material";
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -10,6 +10,17 @@ import Theme from "../Theme";
 
 const UserButtons = props => {
     const navigate = useNavigate();
+    useEffect(() => {
+        props.fetchSignedUser();
+    }, []);
+
+    const getInitials = () => {
+        try {
+            return props.name.substr(0, 1).concat(props.surname.substr(0, 1)).toUpperCase();
+        } catch (e) {
+            return '?'
+        }
+    }
 
     return (
         <Stack direction="row" spacing={2} sx={{marginLeft: "auto"}}>
@@ -33,7 +44,7 @@ const UserButtons = props => {
                         width: "35px"
                     }}
                 >
-                    JW
+                    {getInitials()}
                 </Avatar>
             </IconButton>
             <IconButton
@@ -51,4 +62,11 @@ const UserButtons = props => {
     );
 }
 
-export default connect(null, {signOut})(UserButtons);
+const mapStateToProps = state => {
+    return {
+        name: state.authentication.client.name,
+        surname: state.authentication.client.surname
+    };
+}
+
+export default connect(mapStateToProps, {signOut, fetchSignedUser})(UserButtons);

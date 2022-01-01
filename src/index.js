@@ -7,24 +7,7 @@ import {Provider} from "react-redux";
 import reducers from './reducers';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-const getLoginState = () => {
-    try {
-        return localStorage.getItem('token').length === 204;
-    } catch (e) {
-        return false;
-    }
-}
-
-const store = createStore(reducers,
-    {
-        authentication: {
-            token: localStorage.getItem('token'),
-            isSignedIn: getLoginState()
-        }
-    },
-    composeEnhancers(applyMiddleware(thunk))
-);
+const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)));
 
 ReactDOM.render(
     <Provider store={store}>
