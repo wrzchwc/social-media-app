@@ -16,7 +16,7 @@ const UserButtons = props => {
 
     const getInitials = () => {
         try {
-            return props.name.substr(0, 1).concat(props.surname.substr(0, 1)).toUpperCase();
+            return props.name.substr(0, 1).concat(props.surname.substr(0, 1));
         } catch (e) {
             return '?'
         }

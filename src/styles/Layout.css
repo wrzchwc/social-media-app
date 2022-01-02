@@ -3,9 +3,9 @@
 }
 
 .center-aligned {
-    align-content: center;
+    align-content: flex-end;
 }
 
-.justified {
+.center-justified {
     justify-content: center;
 }

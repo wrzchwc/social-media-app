@@ -1,4 +1,5 @@
 import React, {useEffect} from "react";
+import '../styles/Layout.css';
 import {Field, reduxForm} from "redux-form";
 import {connect} from "react-redux";
 import {clearRecentRegistration, signIn} from "../actions";
@@ -31,23 +32,25 @@ const Login = props => {
     }
 
     return (
-        <div>
-            <h2>Log in</h2>
-            <form onSubmit={props.handleSubmit(onSubmit)}>
-                <Field
-                    component={renderInput}
-                    placeholder="username"
-                    name="username"
-                    secret={false}
-                />
-                <Field
-                    component={renderInput}
-                    placeholder="password"
-                    name="password"
-                    secret={true}
-                />
-                <button>LOG IN</button>
-            </form>
+        <div className="flex center-justified center-aligned">
+            <div>
+                <h2>LOG IN</h2>
+                <form onSubmit={props.handleSubmit(onSubmit)}>
+                    <Field
+                        component={renderInput}
+                        placeholder="username"
+                        name="username"
+                        secret={false}
+                    />
+                    <Field
+                        component={renderInput}
+                        placeholder="password"
+                        name="password"
+                        secret={true}
+                    />
+                    <button>LOG IN</button>
+                </form>
+            </div>
         </div>
     );
 }

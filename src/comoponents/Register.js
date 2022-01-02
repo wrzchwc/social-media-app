@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {connect} from "react-redux";
 import {Field, reduxForm} from "redux-form";
 import {signUp} from "../actions";
@@ -26,7 +26,7 @@ const Register = props => {
 
     return (
         <div>
-            <h2>Register</h2>
+            <h2>REGISTER</h2>
             <form onSubmit={props.handleSubmit(onSubmit)}>
                 <Field
                     component={renderInput}
