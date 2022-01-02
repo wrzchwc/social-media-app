@@ -1,10 +1,10 @@
 import React from "react";
 import '../styles/Layout.css';
 import {connect} from "react-redux";
-import {fetchSignedUser} from "../actions";
-import getMonth from './getMonth';
+import {fetchClient} from "../actions";
+import {months} from './months';
 
-class UserProfile extends React.Component {
+class ClientProfile extends React.Component {
     constructor(props) {
         super(props);
         this.props.fetchSignedUser();
@@ -26,7 +26,7 @@ class UserProfile extends React.Component {
     renderBirthdate() {
         let {dateOfBirth} = this.props.client;
         try {
-            return `${dateOfBirth[2]} ${getMonth(dateOfBirth[1])} ${dateOfBirth[0]}`;
+            return `${dateOfBirth[2]} ${months(dateOfBirth[1])} ${dateOfBirth[0]}`;
         } catch (e) {
         }
     }
@@ -63,4 +63,4 @@ const mapStateToProps = state => {
     return {client: state.authentication.client};
 }
 
-export default connect(mapStateToProps, {fetchSignedUser})(UserProfile);
+export default connect(mapStateToProps, {fetchSignedUser: fetchClient})(ClientProfile);

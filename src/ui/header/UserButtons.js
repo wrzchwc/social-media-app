@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {connect} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {signOut, fetchSignedUser} from "../../actions";
+import {signOut, fetchClient} from "../../actions";
 import {Link} from 'react-router-dom';
 import {Avatar, Button, IconButton, Stack} from "@mui/material";
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -69,4 +69,4 @@ const mapStateToProps = state => {
     };
 }
 
-export default connect(mapStateToProps, {signOut, fetchSignedUser})(UserButtons);
+export default connect(mapStateToProps, {signOut, fetchSignedUser: fetchClient})(UserButtons);

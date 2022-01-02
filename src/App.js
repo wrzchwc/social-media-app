@@ -8,7 +8,7 @@ import PostAdd from "./comoponents/posts/PostAdd";
 import Wall from "./comoponents/posts/Wall";
 import HomePage from "./comoponents/HomePage"
 import Register from "./comoponents/Register";
-import UserProfile from "./comoponents/UserProfile";
+import UserProfile from "./comoponents/ClientProfile";
 import {ThemeProvider} from "@mui/material";
 
 const App = ({isSignedIn}) => {

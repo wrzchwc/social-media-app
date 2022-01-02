@@ -1,7 +1,7 @@
 import social from "../api/social";
 import {
     CLEAR_RECENT_REGISTRATION,
-    FETCH_CURRENT_USER,
+    FETCH_CLIENT,
     SIGN_IN,
     SIGN_OUT,
     SIGN_UP
@@ -42,12 +42,12 @@ export const signUp = (formValues, callback) => async dispatch => {
 }
 
 
-export const fetchSignedUser = () => async dispatch => {
+export const fetchClient = () => async dispatch => {
     try {
         const response = await social.get('/api/users/me',
             {headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}}
         );
-        dispatch({type: FETCH_CURRENT_USER, payload: response.data});
+        dispatch({type: FETCH_CLIENT, payload: response.data});
     } catch (e) {
         console.log('Fetching signed user failed!');
     }

@@ -1,4 +1,4 @@
-import {SIGN_IN, SIGN_OUT, FETCH_CURRENT_USER} from "../actions/types";
+import {SIGN_IN, SIGN_OUT, FETCH_CLIENT} from "../actions/types";
 
 const getLoginState = () => {
     try {
@@ -20,7 +20,7 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, token: action.payload, isSignedIn: true};
         case SIGN_OUT:
             return {...state, token: null, isSignedIn: false, client: {}};
-        case FETCH_CURRENT_USER:
+        case FETCH_CLIENT:
             return {...state, client: action.payload};
         default:
             return state;

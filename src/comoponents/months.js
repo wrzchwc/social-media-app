@@ -1,4 +1,4 @@
-export default (dateOfBirth) => {
+export const months = dateOfBirth => {
     switch (dateOfBirth) {
         case 1:
             return 'January';
