@@ -1,8 +1,16 @@
 import {SIGN_IN, SIGN_OUT, FETCH_CLIENT} from "../actions/types";
+import jwtDecode from "jwt-decode";
+
+const isTokenExpired = token => {
+    return token.exp * 1000 < new Date().getTime();
+}
+
 
 const getLoginState = () => {
+    let token = localStorage.getItem('token');
     try {
-        return localStorage.getItem('token').length !== null;
+        let decodedToken = jwtDecode(token);
+        return !isTokenExpired(decodedToken);
     } catch (e) {
         return false;
     }

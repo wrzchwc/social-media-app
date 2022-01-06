@@ -1,4 +1,5 @@
 import React from "react";
+import '../styles/Layout.css';
 import {connect} from "react-redux";
 import {Field, reduxForm} from "redux-form";
 import {signUp} from "../actions";
@@ -25,42 +26,44 @@ const Register = props => {
     }
 
     return (
-        <div>
-            <h2>REGISTER</h2>
-            <form onSubmit={props.handleSubmit(onSubmit)}>
-                <Field
-                    component={renderInput}
-                    placeholder="username"
-                    name="username"
-                    secret={false}
-                />
-                <Field
-                    component={renderInput}
-                    placeholder="password"
-                    name="password"
-                    secret={true}
-                />
-                <Field
-                    component={renderInput}
-                    placeholder="name"
-                    name="name"
-                    secret={false}
-                />
-                <Field
-                    component={renderInput}
-                    placeholder="surname"
-                    name="surname"
-                    secret={false}
-                />
-                <Field
-                    component={renderInput}
-                    placeholder="email"
-                    name="email"
-                    secret={false}
-                />
-                <p>birthdate</p>
-                <button>REGISTER</button>
-            </form>
+        <div className="flex center-justified center-aligned">
+            <div>
+                <h2>REGISTER</h2>
+                <form onSubmit={props.handleSubmit(onSubmit)}>
+                    <Field
+                        component={renderInput}
+                        placeholder="username"
+                        name="username"
+                        secret={false}
+                    />
+                    <Field
+                        component={renderInput}
+                        placeholder="password"
+                        name="password"
+                        secret={true}
+                    />
+                    <Field
+                        component={renderInput}
+                        placeholder="name"
+                        name="name"
+                        secret={false}
+                    />
+                    <Field
+                        component={renderInput}
+                        placeholder="surname"
+                        name="surname"
+                        secret={false}
+                    />
+                    <Field
+                        component={renderInput}
+                        placeholder="email"
+                        name="email"
+                        secret={false}
+                    />
+                    <p>birthdate</p>
+                    <button>REGISTER</button>
+                </form>
+            </div>
         </div>
     );
 }

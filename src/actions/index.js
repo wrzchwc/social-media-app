@@ -49,7 +49,8 @@ export const fetchClient = () => async dispatch => {
         );
         dispatch({type: FETCH_CLIENT, payload: response.data});
     } catch (e) {
-        console.log('Fetching signed user failed!');
+        localStorage.removeItem('token');
+        dispatch({type: SIGN_OUT});
     }
 }
 

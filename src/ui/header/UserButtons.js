@@ -11,7 +11,7 @@ import Theme from "../Theme";
 const UserButtons = props => {
     const navigate = useNavigate();
     useEffect(() => {
-        props.fetchSignedUser();
+        props.fetchClient();
     }, []);
 
     const getInitials = () => {
@@ -69,4 +69,4 @@ const mapStateToProps = state => {
     };
 }
 
-export default connect(mapStateToProps, {signOut, fetchSignedUser: fetchClient})(UserButtons);
+export default connect(mapStateToProps, {signOut, fetchClient})(UserButtons);

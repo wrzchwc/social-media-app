@@ -7,7 +7,7 @@ import {months} from './months';
 class ClientProfile extends React.Component {
     constructor(props) {
         super(props);
-        this.props.fetchSignedUser();
+        this.props.fetchClient();
     }
 
     renderButtons() {
@@ -63,4 +63,4 @@ const mapStateToProps = state => {
     return {client: state.authentication.client};
 }
 
-export default connect(mapStateToProps, {fetchSignedUser: fetchClient})(ClientProfile);
+export default connect(mapStateToProps, {fetchClient})(ClientProfile);
