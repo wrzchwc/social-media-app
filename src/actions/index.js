@@ -49,8 +49,7 @@ export const fetchClient = () => async dispatch => {
         );
         dispatch({type: FETCH_CLIENT, payload: response.data});
     } catch (e) {
-        localStorage.removeItem('token');
-        dispatch({type: SIGN_OUT});
+        dispatch(signOut());
     }
 }
 
@@ -58,8 +57,7 @@ export const clearRecentRegistration = () => {
     return {type: CLEAR_RECENT_REGISTRATION};
 }
 
-export const signOut = callback => {
+export const signOut = () => {
     localStorage.removeItem('token');
-    callback();
     return {type: SIGN_OUT};
 }

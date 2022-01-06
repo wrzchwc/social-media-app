@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {connect} from "react-redux";
-import {useNavigate} from "react-router-dom";
+// import {useNavigate} from "react-router-dom";
 import {signOut, fetchClient} from "../../actions";
 import {Link} from 'react-router-dom';
 import {Avatar, Button, IconButton, Stack} from "@mui/material";
@@ -9,7 +9,7 @@ import PostAddIcon from '@mui/icons-material/PostAdd';
 import Theme from "../Theme";
 
 const UserButtons = props => {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     useEffect(() => {
         props.fetchClient();
     }, []);
@@ -51,7 +51,7 @@ const UserButtons = props => {
                 color="secondary"
                 component={Link}
                 onClick={() => {
-                    props.signOut(() => navigate('/'))
+                    props.signOut()
                 }}
                 size="large"
                 to="/"
