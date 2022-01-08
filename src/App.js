@@ -10,6 +10,7 @@ import HomePage from "./comoponents/HomePage"
 import Register from "./comoponents/Register";
 import UserProfile from "./comoponents/ClientProfile";
 import {ThemeProvider} from "@mui/material";
+import {Footer} from "./ui/footer/Footer";
 
 const App = ({isSignedIn}) => {
     return (
@@ -24,6 +25,7 @@ const App = ({isSignedIn}) => {
                     <Route path='/api/users/me' element={isSignedIn ? <UserProfile/> : <Navigate to='/'/>}/>
                     <Route path='/api/posts/add' element={isSignedIn ? <PostAdd/> : <Navigate to='/'/>}/>
                 </Routes>
+                <Footer/>
             </BrowserRouter>
         </ThemeProvider>
     );

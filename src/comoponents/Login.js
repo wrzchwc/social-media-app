@@ -32,7 +32,7 @@ const Login = props => {
     }
 
     return (
-        <div className="flex center-justified center-aligned">
+        <div style={{height: "90vh"}}>
             <div>
                 <h2>LOG IN</h2>
                 <form onSubmit={props.handleSubmit(onSubmit)}>
