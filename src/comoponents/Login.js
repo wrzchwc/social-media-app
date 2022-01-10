@@ -4,9 +4,19 @@ import {Field, reduxForm} from "redux-form";
 import {connect} from "react-redux";
 import {clearRecentRegistration, signIn} from "../actions";
 import {useNavigate} from "react-router-dom";
+import {Button, Grid, TextField, Typography} from "@mui/material";
+import {makeStyles, useTheme} from "@mui/styles";
+
+const useStyles = makeStyles(theme => ({
+    button: {
+        color: "#DAF0EE"
+    }
+}))
 
 const Login = props => {
+    const classes = useStyles();
     const navigate = useNavigate();
+    const theme = useTheme();
 
     useEffect(() => {
         return () => {
@@ -17,10 +27,16 @@ const Login = props => {
     const renderInput = ({input, placeholder, secret}) => {
         return (
             <div>
-                <input
+                <TextField
                     {...input}
-                    autoComplete="off"
+                    autoComplete={"off"}
+                    autoFocus
+                    color={"primary"}
+                    id={placeholder}
+                    label={placeholder}
+                    margin={"dense"}
                     placeholder={placeholder}
+                    variant={"outlined"}
                     type={`${secret ? 'password' : 'text'}`}
                 />
             </div>
@@ -32,26 +48,46 @@ const Login = props => {
     }
 
     return (
-        <div style={{height: "90vh"}}>
-            <div>
-                <h2>LOG IN</h2>
-                <form onSubmit={props.handleSubmit(onSubmit)}>
-                    <Field
-                        component={renderInput}
-                        placeholder="username"
-                        name="username"
-                        secret={false}
-                    />
-                    <Field
-                        component={renderInput}
-                        placeholder="password"
-                        name="password"
-                        secret={true}
-                    />
-                    <button>LOG IN</button>
-                </form>
-            </div>
-        </div>
+        <Grid container direction={"row"} style={{height: "89vh"}}>
+            <Grid
+                item
+                container
+                justifyContent={"center"}
+                alignItems={"center"}
+                direction={"column"}
+                style={{marginTop: "-4em"}}
+            >
+                <Grid item>
+                    <Typography variant={"h3"}>LOG IN</Typography>
+                </Grid>
+                <Grid item>
+                    <form onSubmit={props.handleSubmit(onSubmit)}>
+                        <Field
+                            component={renderInput}
+                            placeholder="username"
+                            name="username"
+                            secret={false}
+                        />
+                        <Field
+                            component={renderInput}
+                            placeholder="password"
+                            name="password"
+                            secret={true}
+                        />
+                    </form>
+                </Grid>
+                <Grid item>
+                    <Button
+                        size={"large"}
+                        variant={"contained"}
+                        onClick={props.handleSubmit(onSubmit)}
+                        className={classes.button}
+                    >
+                        Log in
+                    </Button>
+                </Grid>
+            </Grid>
+        </Grid>
     );
 }
 

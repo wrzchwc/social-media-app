@@ -21,6 +21,13 @@ export default createTheme({
             fontSize: "1rem",
             fontWeight: 700,
             textTransform: "none"
+        },
+        h2: {
+            color: socialViolet
+        },
+        h3:  {
+            color: socialViolet,
+            fontWeight: 250
         }
     }
 });
