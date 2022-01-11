@@ -30,7 +30,7 @@ export const signUp = (formValues, callback) => async dispatch => {
                 password: formValues.password,
                 name: formValues.name,
                 surname: formValues.surname,
-                dateOfBirth: new Date(),
+                dateOfBirth: formValues.birthdate,
                 email: formValues.email
             }
         );

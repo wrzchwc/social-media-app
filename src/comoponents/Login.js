@@ -1,5 +1,4 @@
 import React, {useEffect} from "react";
-import '../styles/Layout.css';
 import {Field, reduxForm} from "redux-form";
 import {connect} from "react-redux";
 import {clearRecentRegistration, signIn} from "../actions";
@@ -30,7 +29,6 @@ const Login = props => {
                 <TextField
                     {...input}
                     autoComplete={"off"}
-                    autoFocus
                     color={"primary"}
                     id={placeholder}
                     label={placeholder}
@@ -48,7 +46,7 @@ const Login = props => {
     }
 
     return (
-        <Grid container direction={"row"} style={{height: "89vh"}}>
+        <Grid container style={{height: "89vh"}}>
             <Grid
                 item
                 container

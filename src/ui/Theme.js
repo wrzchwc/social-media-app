@@ -23,7 +23,8 @@ export default createTheme({
             textTransform: "none"
         },
         h2: {
-            color: socialViolet
+            color: socialViolet,
+            fontWeight: 250
         },
         h3:  {
             color: socialViolet,
