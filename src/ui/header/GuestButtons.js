@@ -15,7 +15,7 @@ const GuestButtons = props => {
               size="large"
               to="/api/users/signin"
           >
-              Log in
+              LOG IN
           </Button>
           <Button
               className={props.classes.tab}
@@ -26,7 +26,7 @@ const GuestButtons = props => {
               to="/api/users/signup"
               variant="text"
           >
-              Register
+              REGISTER
           </Button>
       </Stack>
   );

@@ -23,7 +23,6 @@ const App = ({isSignedIn}) => {
                     <Route path="/api/users/signup" element={!isSignedIn ? <Register/> : <Navigate to={-1}/>}/>
                     <Route path='/api/posts' element={isSignedIn ? <Wall/> : <Navigate to='/'/>}/>
                     <Route path='/api/users/me' element={isSignedIn ? <UserProfile/> : <Navigate to='/'/>}/>
-                    <Route path='/api/posts/add' element={isSignedIn ? <PostAdd/> : <Navigate to='/'/>}/>
                 </Routes>
                 <Footer/>
             </BrowserRouter>

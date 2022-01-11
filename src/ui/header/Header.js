@@ -22,6 +22,7 @@ const ElevationScroll = props => {
 const useStyles = makeStyles(theme => ({
     tab: {
         ...theme.typography.tab,
+        fontWeight: 500,
         marginLeft: "25px",
         minWidth: 10,
     },
