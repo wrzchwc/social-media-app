@@ -5,26 +5,34 @@ import {Avatar, Button, Grid, Typography} from "@mui/material";
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import EmailIcon from '@mui/icons-material/Email';
 import CakeIcon from '@mui/icons-material/Cake';
-import {useTheme} from "@mui/styles";
+import {makeStyles, useTheme} from "@mui/styles";
 import getInitials from "../util/initials";
 import getMonth from "../util/months";
 
+const useStyles = makeStyles(theme => ({
+    icon: {
+      verticalAlign: "bottom"
+    },
+    primary: {
+        color: theme.palette.common.violet
+    },
+    verified: {
+        color: theme.palette.success.main
+    }
+}));
 
 const ClientProfile = ({client, fetchClient}) => {
     const theme = useTheme();
+    const classes = useStyles();
 
     useEffect(() => {
         fetchClient()
     }, [fetchClient]);
 
-    const renderButtons = () => {
-        let {followers, following} = client;
+    const renderButton = (attribute, label) => {
         try {
             return (
-                <div className="flex" style={{justifyContent: 'space-around'}}>
-                    <Button size={"small"}>{`${followers.length} followers`}</Button>
-                    <Button size={"small"}>{`${following.length} following`}</Button>
-                </div>
+                <Button size={"small"}>{`${attribute.length} ${label}`}</Button>
             );
         } catch (e) {
         }
@@ -66,28 +74,25 @@ const ClientProfile = ({client, fetchClient}) => {
                             {`${client.name} ${client.surname}`}
                         </Typography>
                     </Grid>
-                    <Grid item container alignItems={"center"} justifyContent={"center"}>
+                    <Grid item container alignItems={"center"} justifyContent={"center"} spacing={1}>
                         <Grid item>
-                            <Typography variant={"p"} style={{fontWeight: 250}}>
-                                {client.username} <VerifiedUserIcon color={"success"}
-                                                                    style={{verticalAlign: "bottom"}}/>
+                            <Typography variant={"p"} style={{fontWeight: 250}} className={classes.verified}>
+                                {client.username} <VerifiedUserIcon className={classes.icon}/>
                             </Typography>
                         </Grid>
-                        <Grid item>
-                            {renderButtons()}
-                        </Grid>
+                        <Grid item>{renderButton(client.followers, 'followers')}</Grid>
+                        <Grid item>{renderButton(client.following, 'following')}</Grid>
                     </Grid>
                     <Grid item container direction={"column"} justifyContent={"center"} alignItems={"flex-start"}
                           alignContent={"center"} spacing={2}>
                         <Grid item>
-                            <Typography variant={"p"} style={{fontWeight: 250}}>
-                                <EmailIcon color={"primary"} style={{verticalAlign: "bottom"}}/> {client.email}
+                            <Typography variant={"p"} style={{fontWeight: 250}} className={classes.primary}>
+                                <EmailIcon color={"secondary"} className={classes.icon}/> {client.email}
                             </Typography>
                         </Grid>
                         <Grid item>
-                            <Typography variant={"p"} style={{fontWeight: 250}}>
-                                <CakeIcon color={"primary"}
-                                          style={{verticalAlign: "bottom"}}/> {renderBirthdate()}
+                            <Typography variant={"p"} style={{fontWeight: 250}} className={classes.primary}>
+                                <CakeIcon color={"secondary"} className={classes.icon}/> {renderBirthdate()}
                             </Typography>
                         </Grid>
                     </Grid>
