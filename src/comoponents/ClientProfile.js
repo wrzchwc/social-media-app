@@ -1,19 +1,21 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import {fetchClient} from "../actions";
-import {months} from './months';
 import {Avatar, Button, Grid, Typography} from "@mui/material";
-import Theme from "../ui/Theme";
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import EmailIcon from '@mui/icons-material/Email';
 import CakeIcon from '@mui/icons-material/Cake';
+import {useTheme} from "@mui/styles";
+import getInitials from "../util/initials";
+import getMonth from "../util/months";
+
 
 const ClientProfile = ({client, fetchClient}) => {
+    const theme = useTheme();
 
     useEffect(() => {
         fetchClient()
     }, [fetchClient]);
-
 
     const renderButtons = () => {
         let {followers, following} = client;
@@ -28,21 +30,11 @@ const ClientProfile = ({client, fetchClient}) => {
         }
     }
 
-
     const renderBirthdate = () => {
         let {dateOfBirth} = client;
         try {
-            return `${dateOfBirth[2]} ${months(dateOfBirth[1])} ${dateOfBirth[0]}`;
+            return `${dateOfBirth[2]} ${getMonth(dateOfBirth[1])} ${dateOfBirth[0]}`;
         } catch (e) {
-        }
-    }
-
-    const getInitials = () => {
-        let {name, surname} = client;
-        try {
-            return name.substr(0, 1).concat(surname.substr(0, 1));
-        } catch (e) {
-            return '?'
         }
     }
 
@@ -59,14 +51,14 @@ const ClientProfile = ({client, fetchClient}) => {
                     <Grid item>
                         <Avatar
                             sx={{
-                                bgcolor: `${Theme.palette.common.cyan}`,
-                                color: `${Theme.palette.common.violet}`,
+                                bgcolor: `${theme.palette.common.cyan}`,
+                                color: `${theme.palette.common.violet}`,
                                 fontSize: "4em",
                                 height: "2em",
                                 width: "2em"
                             }}
                         >
-                            {getInitials()}
+                            {getInitials(client.name, client.surname)}
                         </Avatar>
                     </Grid>
                     <Grid item>

@@ -5,20 +5,15 @@ import {Link} from 'react-router-dom';
 import {Avatar, Button, IconButton, Stack} from "@mui/material";
 import LogoutIcon from '@mui/icons-material/Logout';
 import PostAddIcon from '@mui/icons-material/PostAdd';
-import Theme from "../Theme";
+import getInitials from "../../util/initials";
+import {useTheme} from "@mui/styles";
 
 const UserButtons = props => {
+    const theme = useTheme();
+
     useEffect(() => {
         props.fetchClient();
-    }, []);
-
-    const getInitials = () => {
-        try {
-            return props.name.substr(0, 1).concat(props.surname.substr(0, 1));
-        } catch (e) {
-            return '?'
-        }
-    }
+    }, [props]);
 
     return (
         <Stack direction="row" spacing={2} sx={{marginLeft: "auto"}}>
@@ -36,13 +31,13 @@ const UserButtons = props => {
             <IconButton component={Link} size="large" to="/api/users/me">
                 <Avatar
                     sx={{
-                        bgcolor: `${Theme.palette.common.cyan}`,
-                        color: `${Theme.palette.common.violet}`,
+                        bgcolor: `${theme.palette.common.cyan}`,
+                        color: `${theme.palette.common.violet}`,
                         height: "35px",
                         width: "35px"
                     }}
                 >
-                    {getInitials()}
+                    {getInitials(props.name, props.surname)}
                 </Avatar>
             </IconButton>
             <IconButton
