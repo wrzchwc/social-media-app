@@ -46,7 +46,7 @@ const Login = props => {
     }
 
     return (
-        <Grid container style={{height: "89vh"}}>
+        <Grid container style={{minHeight: "89vh"}}>
             <Grid
                 item
                 container
