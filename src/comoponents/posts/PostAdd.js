@@ -1,9 +1,12 @@
-import React from "react";
+import React, {useState} from "react";
 import {connect} from "react-redux";
 import {Button, Dialog, DialogContent, Grid, TextField, Typography} from "@mui/material";
 import PostAddIcon from '@mui/icons-material/PostAdd';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 const PostAdd = props => {
+    const [content, setContent] = useState('');
+
     return (
         <Dialog
             open={props.open}
@@ -18,7 +21,7 @@ const PostAdd = props => {
                         justifyContent={"space-evenly"}
                         alignItems={"center"}
                         direction={"column"}
-                        spacing={1}
+                        spacing={2}
                     >
                         <Grid item>
                             <Typography variant={"h3"}>NEW POST</Typography>
@@ -31,15 +34,42 @@ const PostAdd = props => {
                                 id={"content"}
                                 margin={"dense"}
                                 multiline
+                                onChange={event => {
+                                    setContent(event.target.value);
+                                }}
                                 placeholder={`What's on your mind ${props.name}?`}
                                 rows={5}
                                 variant={"outlined"}
+                                value={content}
                                 type={"text"}
                             >
                             </TextField>
                         </Grid>
-                        <Grid item>
-                            <Button endIcon={<PostAddIcon/>} variant={"contained"}>ADD</Button>
+                        <Grid item container alignItems={"center"} justifyContent={"center"} spacing={3}>
+                            <Grid item>
+                                <Button
+                                    endIcon={<PostAddIcon/>}
+                                    onClick={()=>{
+                                        console.log(content);
+                                    }}
+                                    variant={"contained"}
+                                >
+                                    ADD
+                                </Button>
+                            </Grid>
+                            <Grid item>
+                                <Button
+                                    color={"secondary"}
+                                    endIcon={<CancelIcon/>}
+                                    onClick={() => {
+                                        setContent('');
+                                        props.onClose();
+                                    }}
+                                    variant={"contained"}
+                                >
+                                    CANCEL
+                                </Button>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -48,8 +78,4 @@ const PostAdd = props => {
     );
 }
 
-const mapStateToProps = state => {
-    return {name: state.authentication.client.name}
-}
-
-export default connect(mapStateToProps)(PostAdd);
+export default PostAdd;

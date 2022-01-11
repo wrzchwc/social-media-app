@@ -60,7 +60,7 @@ const UserButtons = props => {
                     <LogoutIcon/>
                 </IconButton>
             </Stack>
-            <PostAdd open={open} onClose={onClose}/>
+            <PostAdd name={props.name} open={open} onClose={onClose}/>
         </>
     );
 }
