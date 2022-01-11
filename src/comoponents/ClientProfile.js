@@ -52,10 +52,9 @@ const ClientProfile = ({client, fetchClient}) => {
                 item
                 container
                 justifyContent={"center"}
-                alignItems={"flex-start"}
+                alignItems={"center"}
             >
-                <Grid item container xs={4} direction={"column"} alignItems={"center"} spacing={2}
-                      style={{marginTop: "3em"}}>
+                <Grid item container direction={"column"} alignItems={"center"} spacing={2}>
                     <Grid item>
                         <Avatar
                             sx={{
@@ -96,9 +95,6 @@ const ClientProfile = ({client, fetchClient}) => {
                             </Typography>
                         </Grid>
                     </Grid>
-                </Grid>
-                <Grid item xs={8}>
-
                 </Grid>
             </Grid>
         </Grid>
