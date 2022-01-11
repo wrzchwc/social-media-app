@@ -1,15 +1,16 @@
-import {ADD_POST, DROP_POSTS} from "../actions/types";
+import {ADD_POST, DROP_POSTS,FETCH_POSTS} from "../actions/types";
+import _ from 'lodash';
 
-const INITIAL_STATE = {
-    all:[]
-}
+const INITIAL_STATE = {}
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case ADD_POST:
-            return {...state, all: [...state.all, action.payload]};
+            return {...state, [action.payload.id]: action.payload};
         case DROP_POSTS:
-            return {...state, all: []}
+            return INITIAL_STATE;
+        case FETCH_POSTS:
+            return {...state, ..._.mapKeys(action.payload, 'id')};
         default:
             return state;
     }

@@ -5,3 +5,4 @@ export const CLEAR_RECENT_REGISTRATION = 'CLEAR_RECENT_REGISTRATION';
 export const FETCH_CLIENT = 'FETCH_CLIENT';
 export const ADD_POST = 'ADD_POST';
 export const DROP_POSTS = 'DROP_POSTS';
+export const FETCH_POSTS = 'FETCH_POSTS';

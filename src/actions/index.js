@@ -4,6 +4,7 @@ import {
     DROP_POSTS,
     CLEAR_RECENT_REGISTRATION,
     FETCH_CLIENT,
+    FETCH_POSTS,
     SIGN_IN,
     SIGN_OUT,
     SIGN_UP
@@ -50,6 +51,17 @@ export const fetchClient = () => async dispatch => {
         );
         dispatch({type: FETCH_CLIENT, payload: response.data});
     } catch (e) {
+        dispatch(signOut());
+    }
+}
+
+export const fetchPosts = () => async dispatch => {
+    try{
+        const response = await social.get('/api/posts',{
+            headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+        });
+        dispatch({type: FETCH_POSTS, payload: response.data});
+    }catch(e){
         dispatch(signOut());
     }
 }
