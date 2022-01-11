@@ -1,5 +1,6 @@
 import social from "../api/social";
 import {
+    ADD_POST,
     CLEAR_RECENT_REGISTRATION,
     FETCH_CLIENT,
     SIGN_IN,
@@ -41,7 +42,6 @@ export const signUp = (formValues, callback) => async dispatch => {
     }
 }
 
-
 export const fetchClient = () => async dispatch => {
     try {
         const response = await social.get('/api/users/me',
@@ -60,4 +60,19 @@ export const clearRecentRegistration = () => {
 export const signOut = () => {
     localStorage.removeItem('token');
     return {type: SIGN_OUT};
+}
+
+export const addPost = content => async dispatch => {
+    try {
+        const response = await social.post('/api/posts',
+            {content: content},
+            {
+                headers: {Authorization: `Bearer ${localStorage.getItem('token')}`},
+            }
+        );
+        dispatch({type: ADD_POST, payload: response.data})
+    } catch (e) {
+        console.log('Post addition error!')
+        // dispatch(signOut());
+    }
 }

@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {connect} from "react-redux";
+import {addPost} from "../../actions";
 import {Button, Dialog, DialogContent, Grid, TextField, Typography} from "@mui/material";
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import CancelIcon from '@mui/icons-material/Cancel';
@@ -50,7 +51,9 @@ const PostAdd = props => {
                                 <Button
                                     endIcon={<PostAddIcon/>}
                                     onClick={()=>{
-                                        console.log(content);
+                                        props.addPost(content);
+                                        setContent('');
+                                        props.onClose();
                                     }}
                                     variant={"contained"}
                                 >
@@ -78,4 +81,4 @@ const PostAdd = props => {
     );
 }
 
-export default PostAdd;
+export default connect(null, {addPost})(PostAdd);
