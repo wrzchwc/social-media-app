@@ -1,6 +1,7 @@
 import social from "../api/social";
 import {
     ADD_POST,
+    DROP_POSTS,
     CLEAR_RECENT_REGISTRATION,
     FETCH_CLIENT,
     SIGN_IN,
@@ -57,9 +58,10 @@ export const clearRecentRegistration = () => {
     return {type: CLEAR_RECENT_REGISTRATION};
 }
 
-export const signOut = () => {
+export const signOut = () => dispatch => {
     localStorage.removeItem('token');
-    return {type: SIGN_OUT};
+    dispatch({type: DROP_POSTS})
+    dispatch({type: SIGN_OUT});
 }
 
 export const addPost = content => async dispatch => {
@@ -73,6 +75,6 @@ export const addPost = content => async dispatch => {
         dispatch({type: ADD_POST, payload: response.data})
     } catch (e) {
         console.log('Post addition error!')
-        // dispatch(signOut());
+        dispatch(signOut());
     }
 }
