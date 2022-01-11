@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {clearRecentRegistration, signIn} from "../actions";
 import {useNavigate} from "react-router-dom";
 import {Button, Grid, TextField, Typography} from "@mui/material";
-import {makeStyles, useTheme} from "@mui/styles";
+import {makeStyles} from "@mui/styles";
 
 const useStyles = makeStyles(theme => ({
     button: {
@@ -15,7 +15,6 @@ const useStyles = makeStyles(theme => ({
 const Login = props => {
     const classes = useStyles();
     const navigate = useNavigate();
-    const theme = useTheme();
 
     useEffect(() => {
         return () => {
