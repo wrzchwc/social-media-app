@@ -20,13 +20,7 @@ const Wall = ({posts, fetchPosts}) => {
     const renderPosts = () => {
         return posts.map(post => {
             return (
-                <Post
-                    authorUsername={post.authorUsername}
-                    content={post.content}
-                    isEdited={post.isEdited}
-                    key={post.id}
-                    publicationDate={post.publicationDate}
-                />
+                <Post key={post.id} post={post}/>
             );
         })
     }
@@ -37,7 +31,7 @@ const Wall = ({posts, fetchPosts}) => {
                 item
                 container
                 direction={"column"}
-                justifyContent={"center"}
+                justifyContent={"flex-start"}
                 alignItems={"center"}
                 style={{margin: "1em 0 1em 0"}}
                 xs={7}

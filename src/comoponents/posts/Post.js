@@ -1,6 +1,6 @@
 import React from 'react';
-import {Box, Grid, IconButton, TextField, Typography} from "@mui/material";
-import {makeStyles} from "@mui/styles";
+import {Grid, IconButton, TextField, Typography} from "@mui/material";
+import {makeStyles, useTheme} from "@mui/styles";
 import EditAttributesIcon from '@mui/icons-material/EditAttributes';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -14,13 +14,23 @@ const useStyles = makeStyles(theme => ({
         borderRadius: "5px",
         padding: "1em",
         width: "100%"
+    },
+    commentsNumber: {
+        color: theme.palette.info.main,
+        fontWeight: 550
+    },
+    likesNumber:{
+        color: theme.palette.error.main,
+        fontWeight: 550
     }
 }));
 
-const Post = ({content, isEdited, publicationDate, ...props}) => {
+const Post = props => {
     const classes = useStyles();
+    const theme = useTheme();
 
     const getPublicationDateFormatted = () => {
+        let {publicationDate} = {props};
         try {
             let day = publicationDate[2];
             let month = getMonth(publicationDate[1]);
@@ -37,10 +47,10 @@ const Post = ({content, isEdited, publicationDate, ...props}) => {
         <Grid container item direction={"column"} className={classes.container} style={{marginTop: "1em"}}>
             <Grid item container justifyContent={"space-between"} alignItems={"center"}>
                 <Grid item>
-                    <Typography fontSize={"large"}>{props.authorUsername}</Typography>
+                    <Typography fontSize={"large"}>{props.post.authorUsername}</Typography>
                 </Grid>
                 <Grid item>
-                    <EditAttributesIcon color={isEdited ? 'success' : 'disabled'}/>
+                    <EditAttributesIcon color={props.post.isEdited ? 'success' : 'disabled'}/>
                 </Grid>
             </Grid>
             <Grid item>
@@ -49,7 +59,7 @@ const Post = ({content, isEdited, publicationDate, ...props}) => {
                     InputProps={{readOnly: true}}
                     multiline
                     type={"text"}
-                    value={content}
+                    value={props.post.content}
                     variant={"outlined"}
                 >
                 </TextField>
@@ -57,16 +67,26 @@ const Post = ({content, isEdited, publicationDate, ...props}) => {
             <Grid item>
                 <Typography variant={"caption"}>{getPublicationDateFormatted()}</Typography>
             </Grid>
-            <Grid item container justifyContent={"flex-end"}>
+            <Grid item container justifyContent={"flex-end"} alignItems={"center"}>
                 <Grid item>
                     <IconButton color={"error"}>
                         <FavoriteBorderIcon/>
                     </IconButton>
                 </Grid>
                 <Grid item>
+                    <Typography variant={"p"} className={classes.likesNumber}>
+                        {props.post.usersLikes !== null ? props.post.usersLikes.length : null}
+                    </Typography>
+                </Grid>
+                <Grid item>
                     <IconButton color={"info"}>
                         <CommentIcon/>
                     </IconButton>
+                </Grid>
+                <Grid item>
+                    <Typography variant={"p"} className={classes.commentsNumber}>
+                        {props.post.comments !== null ? props.post.comments.length : null}
+                    </Typography>
                 </Grid>
             </Grid>
         </Grid>
