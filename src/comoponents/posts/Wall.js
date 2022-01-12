@@ -1,23 +1,33 @@
 import React, {useEffect} from 'react';
 import {connect} from "react-redux";
 import {fetchPosts} from "../../actions";
+import {Grid} from "@mui/material";
+import Post from "./Post";
+import {makeStyles} from "@mui/styles";
+
+const useStyles = makeStyles(theme => ({
+    container: {
+        minHeight: "89vh"
+    }
+}));
 
 const Wall = ({posts, fetchPosts}) => {
-    useEffect(()=>{
+    const classes = useStyles();
+    useEffect(() => {
         fetchPosts();
-    },[fetchPosts]);
-
-    console.log(posts);
+    }, [fetchPosts]);
 
     return (
-        <div style={{minHeight: "89vh"}}>
-            So much going around 😎
-        </div>
+        <Grid container className={classes.container} direction={"column"}>
+            <Grid item container justifyContent={"center"} style={{margin: "2em 0 2em 0"}}>
+                <Post/>
+            </Grid>
+        </Grid>
     );
 }
 
 const mapStateToProps = state => {
-  return {posts: state.posts.all};
+    return {posts: state.posts.all};
 }
 
 export default connect(mapStateToProps, {fetchPosts})(Wall);
