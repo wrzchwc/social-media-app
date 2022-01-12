@@ -1,4 +1,6 @@
 import React from 'react';
+import {connect} from "react-redux";
+import {likePost} from "../../actions";
 import {Grid, IconButton, TextField, Typography} from "@mui/material";
 import {makeStyles, useTheme} from "@mui/styles";
 import EditAttributesIcon from '@mui/icons-material/EditAttributes';
@@ -69,7 +71,7 @@ const Post = props => {
             </Grid>
             <Grid item container justifyContent={"flex-end"} alignItems={"center"}>
                 <Grid item>
-                    <IconButton color={"error"}>
+                    <IconButton color={"error"} onClick={()=>{props.likePost(props.post.id)}}>
                         <FavoriteBorderIcon/>
                     </IconButton>
                 </Grid>
@@ -94,4 +96,4 @@ const Post = props => {
 
 }
 
-export default Post;
+export default connect(null, {likePost})(Post);

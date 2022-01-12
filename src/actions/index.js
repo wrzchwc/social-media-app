@@ -81,12 +81,25 @@ export const addPost = content => async dispatch => {
         const response = await social.post('/api/posts',
             {content: content},
             {
-                headers: {Authorization: `Bearer ${localStorage.getItem('token')}`},
+                headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
             }
         );
         dispatch({type: ADD_POST, payload: response.data})
     } catch (e) {
-        console.log('Post addition error!')
+        console.log('Post addition error!');
         dispatch(signOut());
     }
 }
+
+export const likePost = postID => async dispatch => {
+    try{
+        await social.post(`/api/posts/${postID}/like`,null,{
+            headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+        });
+        dispatch(fetchPosts());
+    } catch (e) {
+        console.log('Unable to like post');
+        dispatch(signOut());
+    }
+}
+
