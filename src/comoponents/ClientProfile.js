@@ -13,6 +13,10 @@ const useStyles = makeStyles(theme => ({
     icon: {
       verticalAlign: "bottom"
     },
+    label: {
+        fontFamily: "Roboto",
+        fontWeight: "375"
+    },
     primary: {
         color: theme.palette.common.violet
     },
@@ -75,7 +79,7 @@ const ClientProfile = ({client, fetchClient}) => {
                     </Grid>
                     <Grid item container alignItems={"center"} justifyContent={"center"} spacing={1}>
                         <Grid item>
-                            <Typography variant={"p"} style={{fontWeight: 250}} className={classes.verified}>
+                            <Typography variant={"p"} className={`${classes.label} ${classes.verified}`}>
                                 {client.username} <VerifiedUserIcon className={classes.icon}/>
                             </Typography>
                         </Grid>
@@ -85,12 +89,12 @@ const ClientProfile = ({client, fetchClient}) => {
                     <Grid item container direction={"column"} justifyContent={"center"} alignItems={"flex-start"}
                           alignContent={"center"} spacing={2}>
                         <Grid item>
-                            <Typography variant={"p"} style={{fontWeight: 250}} className={classes.primary}>
+                            <Typography variant={"p"} className={`${classes.primary} ${classes.label}`}>
                                 <EmailIcon color={"secondary"} className={classes.icon}/> {client.email}
                             </Typography>
                         </Grid>
                         <Grid item>
-                            <Typography variant={"p"} style={{fontWeight: 250}} className={classes.primary}>
+                            <Typography variant={"p"} className={`${classes.primary} ${classes.label}`}>
                                 <CakeIcon color={"secondary"} className={classes.icon}/> {renderBirthdate()}
                             </Typography>
                         </Grid>

@@ -19,20 +19,25 @@ const useStyles = makeStyles(theme => ({
     },
     commentsNumber: {
         color: theme.palette.info.main,
+        fontFamily: "Arial",
         fontWeight: 550
     },
-    likesNumber:{
+    label: {
+        color: theme.palette.common.violet
+    },
+    likesNumber: {
         color: theme.palette.error.main,
+        fontFamily: "Roboto",
         fontWeight: 550
     }
 }));
 
 const Post = props => {
     const classes = useStyles();
-    const theme = useTheme();
 
     const getPublicationDateFormatted = () => {
-        let {publicationDate} = {props};
+        let {publicationDate} = props.post;
+
         try {
             let day = publicationDate[2];
             let month = getMonth(publicationDate[1]);
@@ -45,11 +50,23 @@ const Post = props => {
         }
     }
 
+    const renderLikeIcon = () => {
+        let {usersLikes} = props.post;
+        let {client} = props;
+
+        if (usersLikes === null) {
+            return <FavoriteBorderIcon/>;
+        } else if (!usersLikes.some(userLike => userLike === client)) {
+            return <FavoriteBorderIcon/>;
+        }
+        return <FavoriteIcon/>;
+    }
+
     return (
         <Grid container item direction={"column"} className={classes.container} style={{marginTop: "1em"}}>
             <Grid item container justifyContent={"space-between"} alignItems={"center"}>
                 <Grid item>
-                    <Typography fontSize={"large"}>{props.post.authorUsername}</Typography>
+                    <Typography className={classes.label} fontSize={"large"}>{props.post.authorUsername}</Typography>
                 </Grid>
                 <Grid item>
                     <EditAttributesIcon color={props.post.isEdited ? 'success' : 'disabled'}/>
@@ -67,12 +84,17 @@ const Post = props => {
                 </TextField>
             </Grid>
             <Grid item>
-                <Typography variant={"caption"}>{getPublicationDateFormatted()}</Typography>
+                <Typography className={classes.label} variant={"caption"}>{getPublicationDateFormatted()}</Typography>
             </Grid>
             <Grid item container justifyContent={"flex-end"} alignItems={"center"}>
                 <Grid item>
-                    <IconButton color={"error"} onClick={()=>{props.likePost(props.post.id)}}>
-                        <FavoriteBorderIcon/>
+                    <IconButton
+                        color={"error"}
+                        onClick={() => {
+                            props.likePost(props.post.id)
+                        }}
+                    >
+                        {renderLikeIcon()}
                     </IconButton>
                 </Grid>
                 <Grid item>

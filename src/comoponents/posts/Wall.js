@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const Wall = ({posts, fetchPosts}) => {
+const Wall = ({client, posts, fetchPosts}) => {
     const classes = useStyles();
     useEffect(() => {
         fetchPosts();
@@ -20,7 +20,7 @@ const Wall = ({posts, fetchPosts}) => {
     const renderPosts = () => {
         return posts.map(post => {
             return (
-                <Post key={post.id} post={post}/>
+                <Post client={client} key={post.id} post={post}/>
             );
         })
     }
@@ -43,7 +43,10 @@ const Wall = ({posts, fetchPosts}) => {
 }
 
 const mapStateToProps = state => {
-    return {posts: Object.values(state.posts)};
+    return {
+        client: state.authentication.client.username,
+        posts: Object.values(state.posts)
+    };
 }
 
 export default connect(mapStateToProps, {fetchPosts})(Wall);
