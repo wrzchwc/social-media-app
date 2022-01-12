@@ -5,36 +5,42 @@ import EditAttributesIcon from '@mui/icons-material/EditAttributes';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import CommentIcon from '@mui/icons-material/Comment';
+import getMonth from "../../util/months";
 
 const useStyles = makeStyles(theme => ({
     container: {
         backgroundColor: theme.palette.common.cyan,
         border: `3px solid ${theme.palette.common.violet}`,
         borderRadius: "5px",
-        height: "100%",
         padding: "1em",
         width: "100%"
     }
 }));
 
-const Post = props => {
+const Post = ({content, isEdited, publicationDate, ...props}) => {
     const classes = useStyles();
 
+    const getPublicationDateFormatted = () => {
+        try {
+            let day = publicationDate[2];
+            let month = getMonth(publicationDate[1]);
+            let year = publicationDate[0];
+            let hour = publicationDate[3];
+            let minutes = publicationDate[4] < 10 ? '0'.concat(publicationDate[4]) : publicationDate[4];
+            return `${day} ${month} ${year}, at ${hour}:${minutes}`;
+        } catch (e) {
+            return null;
+        }
+    }
+
     return (
-        <Grid container item direction={"column"} xs={7} className={classes.container} spacing={1}>
-            <Grid item container justifyContent={"space-between"} alignItems={"space-evenly"}>
-                <Grid item direction={"column"}>
-                    <Grid conainer direction={"column"} spacing={1}>
-                        <Grid item>
-                            <Typography fontSize={"large"}>username</Typography>
-                        </Grid>
-                        <Grid item>
-                            <Typography variant={"caption"}>date</Typography>
-                        </Grid>
-                    </Grid>
+        <Grid container item direction={"column"} className={classes.container} style={{marginTop: "1em"}}>
+            <Grid item container justifyContent={"space-between"} alignItems={"center"}>
+                <Grid item>
+                    <Typography fontSize={"large"}>{props.authorUsername}</Typography>
                 </Grid>
-                <Grid item alignSelf={"center"}>
-                    <EditAttributesIcon color={"disabled"}/>
+                <Grid item>
+                    <EditAttributesIcon color={isEdited ? 'success' : 'disabled'}/>
                 </Grid>
             </Grid>
             <Grid item>
@@ -43,12 +49,15 @@ const Post = props => {
                     InputProps={{readOnly: true}}
                     multiline
                     type={"text"}
-                    value={"Post content"}
+                    value={content}
                     variant={"outlined"}
                 >
                 </TextField>
             </Grid>
-            <Grid item container justifyContent={"flex-end"} spacing={1}>
+            <Grid item>
+                <Typography variant={"caption"}>{getPublicationDateFormatted()}</Typography>
+            </Grid>
+            <Grid item container justifyContent={"flex-end"}>
                 <Grid item>
                     <IconButton color={"error"}>
                         <FavoriteBorderIcon/>
@@ -58,11 +67,6 @@ const Post = props => {
                     <IconButton color={"info"}>
                         <CommentIcon/>
                     </IconButton>
-                </Grid>
-                <Grid item>
-                    <Typography>
-
-                    </Typography>
                 </Grid>
             </Grid>
         </Grid>

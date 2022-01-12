@@ -17,17 +17,39 @@ const Wall = ({posts, fetchPosts}) => {
         fetchPosts();
     }, [fetchPosts]);
 
+    const renderPosts = () => {
+        return posts.map(post => {
+            return (
+                <Post
+                    authorUsername={post.authorUsername}
+                    content={post.content}
+                    isEdited={post.isEdited}
+                    key={post.id}
+                    publicationDate={post.publicationDate}
+                />
+            );
+        })
+    }
+
     return (
-        <Grid container className={classes.container} direction={"column"}>
-            <Grid item container justifyContent={"center"} style={{margin: "2em 0 2em 0"}}>
-                <Post/>
+        <Grid container className={classes.container} direction={"row"} justifyContent={"center"}>
+            <Grid
+                item
+                container
+                direction={"column"}
+                justifyContent={"center"}
+                alignItems={"center"}
+                style={{margin: "1em 0 1em 0"}}
+                xs={7}
+            >
+                {renderPosts()}
             </Grid>
         </Grid>
     );
 }
 
 const mapStateToProps = state => {
-    return {posts: state.posts.all};
+    return {posts: Object.values(state.posts)};
 }
 
 export default connect(mapStateToProps, {fetchPosts})(Wall);
