@@ -1,28 +1,16 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {Field, reduxForm} from "redux-form";
 import {connect} from "react-redux";
 import {clearRecentRegistration, signIn} from "../actions";
-import {useNavigate} from "react-router-dom";
 import {Button, Grid, TextField, Typography} from "@mui/material";
-import {makeStyles} from "@mui/styles";
 
-const useStyles = makeStyles(theme => ({
-    button: {
-        color: "#DAF0EE"
+
+class Login extends React.Component {
+    componentWillUnmount() {
+        this.props.clearRecentRegistration();
     }
-}))
 
-const Login = props => {
-    const classes = useStyles();
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        return () => {
-            props.clearRecentRegistration()
-        }
-    }, [])
-
-    const renderInput = ({input, placeholder, secret}) => {
+    renderInput({input, placeholder, secret}) {
         return (
             <div>
                 <TextField
@@ -40,52 +28,54 @@ const Login = props => {
         );
     }
 
-    const onSubmit = formValues => {
-        props.signIn(formValues, () => navigate('/api/posts'));
+    onSubmit = formValues => {
+        this.props.signIn(formValues);
     }
 
-    return (
-        <Grid container style={{minHeight: "89vh"}}>
-            <Grid
-                item
-                container
-                justifyContent={"center"}
-                alignItems={"center"}
-                direction={"column"}
-                style={{marginTop: "-4em"}}
-            >
-                <Grid item>
-                    <Typography variant={"h3"}>LOG IN</Typography>
-                </Grid>
-                <Grid item>
-                    <form onSubmit={props.handleSubmit(onSubmit)}>
-                        <Field
-                            component={renderInput}
-                            placeholder="username"
-                            name="username"
-                            secret={false}
-                        />
-                        <Field
-                            component={renderInput}
-                            placeholder="password"
-                            name="password"
-                            secret={true}
-                        />
-                    </form>
-                </Grid>
-                <Grid item>
-                    <Button
-                        size={"large"}
-                        variant={"contained"}
-                        onClick={props.handleSubmit(onSubmit)}
-                        className={classes.button}
-                    >
-                        Log in
-                    </Button>
+    render() {
+        return (
+            <Grid container style={{minHeight: "89vh"}}>
+                <Grid
+                    item
+                    container
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                    direction={"column"}
+                    style={{marginTop: "-4em"}}
+                >
+                    <Grid item>
+                        <Typography variant={"h3"}>LOG IN</Typography>
+                    </Grid>
+                    <Grid item>
+                        <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
+                            <Field
+                                component={this.renderInput}
+                                placeholder="username"
+                                name="username"
+                                secret={false}
+                            />
+                            <Field
+                                component={this.renderInput}
+                                placeholder="password"
+                                name="password"
+                                secret={true}
+                            />
+                            <Button
+                                size={"large"}
+                                variant={"contained"}
+                                onClick={this.props.handleSubmit(this.onSubmit)}
+                                style={{color: "#DAF0EE"}}
+                            >
+                                Log in
+                            </Button>
+                        </form>
+                    </Grid>
                 </Grid>
             </Grid>
-        </Grid>
-    );
+        );
+    }
+
+
 }
 
 const mapStateToProps = state => {
@@ -97,5 +87,6 @@ const mapStateToProps = state => {
     }
 };
 
-export default connect(mapStateToProps, {signIn, clearRecentRegistration})
-(reduxForm({form: 'loginForm'})(Login));
+
+Login = reduxForm({form: 'loginForm'})(Login);
+export default connect(mapStateToProps, {clearRecentRegistration, signIn})(Login);
