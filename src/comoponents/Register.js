@@ -1,130 +1,119 @@
-import React, {useState} from "react";
-import '../styles/Layout.css';
+import React from "react";
 import {connect} from "react-redux";
 import {Field, reduxForm} from "redux-form";
 import {signUp} from "../actions";
-import {useNavigate} from "react-router-dom";
 import {Button, Grid, TextField, Typography} from "@mui/material";
-import {makeStyles, useTheme} from "@mui/styles";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import DatePicker from "@mui/lab/DatePicker";
+import {Link, useNavigate} from "react-router-dom";
 
-const useStyles = makeStyles(theme => ({
-    button: {
-        color: "DAF0EE"
-    }
-}))
 
-const Register = props => {
-    const classes = useStyles();
-    const navigate = useNavigate();
-    const theme = useTheme();
-    const [birthdate, setBirthdate] = useState(null);
+class Register extends React.Component {
+    state = {birthdate: null};
 
-    const onSubmit = (formValues) => {
-        props.signUp({...formValues, ["birthdate"]: birthdate}, () => navigate('/api/users/signin'));
+    onSubmit = (formValues) => {
+        this.props.signUp(formValues, () => {
+            this.props.navigate('/api/users/signin');
+        });
     }
 
-    const renderInput = ({input, placeholder, secret}) => {
+    renderInput(props) {
         return (
             <div>
                 <TextField
-                    {...input}
+                    {...props.input}
                     autoComplete="off"
-                    autoFocus
                     color={"primary"}
-                    id={placeholder}
-                    label={placeholder}
+                    fullWidth
+                    id={props.placeholder}
+                    label={props.label}
                     margin={"dense"}
-                    placeholder={placeholder}
-                    type={`${secret ? 'password' : 'text'}`}
+                    placeholder={props.placeholder}
+                    type={props.type}
                 />
             </div>
         );
     }
 
-    const renderDatePicker = (props) => {
+    render() {
         return (
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DatePicker
-                    label="birthdate"
-                    value={birthdate}
-                    onChange={(newValue) => {
-                        setBirthdate(newValue);
-                    }}
-                    renderInput={(params) => (
-                        <TextField {...params} style={{marginLeft: "auto", maxWidth: "13em"}} margin={"dense"}/>
-                    )}
-                />
-            </LocalizationProvider>
+            <Grid container style={{minHeight: "89vh"}}>
+                <Grid
+                    item
+                    container
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                    direction={"column"}
+                >
+                    <Grid item>
+                        <Typography variant={"h3"}>REGISTER</Typography>
+                    </Grid>
+                    <Grid item>
+                        <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
+                            <Field
+                                component={this.renderInput}
+                                label={"username"}
+                                placeholder="username"
+                                name="username"
+                                type={"text"}
+                            />
+                            <Field
+                                component={this.renderInput}
+                                label={"password"}
+                                placeholder="password"
+                                name="password"
+                                type={"password"}
+                            />
+                            <Field
+                                component={this.renderInput}
+                                label={"name"}
+                                placeholder="name"
+                                name="name"
+                                type={"text"}
+                            />
+                            <Field
+                                component={this.renderInput}
+                                label={"surname"}
+                                placeholder="surname"
+                                name="surname"
+                                type={"text"}
+                            />
+                            <Field
+                                component={this.renderInput}
+                                label={"email"}
+                                placeholder="email"
+                                name="email"
+                                type={"text"}
+                            />
+                            <Field
+                                component={this.renderInput}
+                                name="birthdate"
+                                type={"datetime-local"}
+                            />
+                        </form>
+                    </Grid>
+                    <Grid item>
+                        <Button
+                            component={Link}
+                            size={"large"}
+                            variant={"contained"}
+                            onClick={this.props.handleSubmit(this.onSubmit)}
+                            style={{color: "#DAF0EE"}}
+                            to={"/api/users/signup"}
+                        >
+                            Register
+                        </Button>
+                    </Grid>
+
+                </Grid>
+            </Grid>
         );
     }
-
-    return (
-        <Grid container style={{minHeight: "89vh"}}>
-            <Grid
-                item
-                container
-                justifyContent={"center"}
-                alignItems={"center"}
-                direction={"column"}
-            >
-                <Grid item>
-                    <Typography variant={"h3"}>REGISTER</Typography>
-                </Grid>
-                <Grid item>
-                    <form onSubmit={props.handleSubmit(onSubmit)}>
-                        <Field
-                            component={renderInput}
-                            placeholder="username"
-                            name="username"
-                            secret={false}
-                        />
-                        <Field
-                            component={renderInput}
-                            placeholder="password"
-                            name="password"
-                            secret={true}
-                        />
-                        <Field
-                            component={renderInput}
-                            placeholder="name"
-                            name="name"
-                            secret={false}
-                        />
-                        <Field
-                            component={renderInput}
-                            placeholder="surname"
-                            name="surname"
-                            secret={false}
-                        />
-                        <Field
-                            component={renderInput}
-                            placeholder="email"
-                            name="email"
-                            secret={false}
-                        />
-                        <Field
-                            component={renderDatePicker}
-                            name="birthdate"
-                        />
-                    </form>
-                </Grid>
-                <Grid item>
-                    <Button
-                        size={"large"}
-                        variant={"contained"}
-                        onClick={props.handleSubmit(onSubmit)}
-                        className={classes.button}
-                    >
-                        Register
-                    </Button>
-                </Grid>
-
-            </Grid>
-        </Grid>
-    );
 }
 
-export default connect(null, {signUp})(reduxForm({form: 'registerForm'})(Register));
+const withRouter = WrappedComponent => props => {
+    const navigate = useNavigate();
+    return (<WrappedComponent {...props} navigate={navigate}/>);
+};
+
+Register = reduxForm({form: 'registerForm'})(Register);
+Register = connect(null, {signUp})(Register);
+export default withRouter(Register);

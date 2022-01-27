@@ -60,15 +60,17 @@ class Login extends React.Component {
                                 name="password"
                                 secret={true}
                             />
-                            <Button
-                                size={"large"}
-                                variant={"contained"}
-                                onClick={this.props.handleSubmit(this.onSubmit)}
-                                style={{color: "#DAF0EE"}}
-                            >
-                                Log in
-                            </Button>
                         </form>
+                    </Grid>
+                    <Grid item>
+                        <Button
+                            size={"large"}
+                            variant={"contained"}
+                            onClick={this.props.handleSubmit(this.onSubmit)}
+                            style={{color: "#DAF0EE"}}
+                        >
+                            Log in
+                        </Button>
                     </Grid>
                 </Grid>
             </Grid>
