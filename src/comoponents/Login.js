@@ -6,23 +6,28 @@ import {Button, Grid, TextField, Typography} from "@mui/material";
 
 
 class Login extends React.Component {
+    state = {valid: false};
+
     componentWillUnmount() {
         this.props.clearRecentRegistration();
     }
 
-    renderInput({input, placeholder, secret}) {
+    renderInput(props) {
+        const helperText = props.meta.error && props.meta.touched ? 'Field must be filled' : null;
         return (
             <div>
                 <TextField
-                    {...input}
+                    {...props.input}
                     autoComplete={"off"}
                     color={"primary"}
-                    id={placeholder}
-                    label={placeholder}
+                    id={props.placeholder}
+                    error={props.meta.error && props.meta.touched}
+                    helperText={helperText}
+                    label={props.placeholder}
                     margin={"dense"}
-                    placeholder={placeholder}
+                    placeholder={props.placeholder}
                     variant={"outlined"}
-                    type={`${secret ? 'password' : 'text'}`}
+                    type={`${props.secret ? 'password' : 'text'}`}
                 />
             </div>
         );
@@ -31,6 +36,13 @@ class Login extends React.Component {
     onSubmit = formValues => {
         this.props.signIn(formValues);
     }
+
+    validate = (value, allValues) => {
+        console.log(Object.values(allValues).some(v => v === ''))
+        this.setState({valid: Object.values(allValues).some(v => v === '')});
+        return value ? undefined : 'error';
+    }
+
 
     render() {
         return (
@@ -53,17 +65,20 @@ class Login extends React.Component {
                                 placeholder="username"
                                 name="username"
                                 secret={false}
+                                validate={this.validate}
                             />
                             <Field
                                 component={this.renderInput}
                                 placeholder="password"
                                 name="password"
                                 secret={true}
+                                validate={this.validate}
                             />
                         </form>
                     </Grid>
                     <Grid item>
                         <Button
+                            disabled={this.state.valid}
                             size={"large"}
                             variant={"contained"}
                             onClick={this.props.handleSubmit(this.onSubmit)}
