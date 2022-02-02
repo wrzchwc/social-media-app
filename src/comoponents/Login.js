@@ -1,8 +1,8 @@
 import React from "react";
 import {Field, reduxForm} from "redux-form";
 import {connect} from "react-redux";
-import {clearRecentRegistration, signIn} from "../actions";
-import {Button, Grid, TextField, Typography} from "@mui/material";
+import {clearRecentRegistration, signIn, acknowledgeSignInError} from "../actions";
+import {Alert, Button, Collapse, Grid, TextField, Typography} from "@mui/material";
 
 
 class Login extends React.Component {
@@ -53,6 +53,7 @@ class Login extends React.Component {
                     alignItems={"center"}
                     direction={"column"}
                     style={{marginTop: "-4em"}}
+                    spacing={1}
                 >
                     <Grid item>
                         <Typography variant={"h3"}>LOG IN</Typography>
@@ -86,6 +87,20 @@ class Login extends React.Component {
                             Log in
                         </Button>
                     </Grid>
+                    <Grid item>
+                        <Collapse in={this.props.loginError} style={{marginTop: "1em"}}>
+                            <Alert
+                                closeText={'Try again or register'}
+                                onClose={() => {
+                                    this.props.acknowledgeSignInError();
+                                }}
+                                severity="error"
+                                variant={"filled"}
+                            >
+                                Incorrect credentials or user does not exist!
+                            </Alert>
+                        </Collapse>
+                    </Grid>
                 </Grid>
             </Grid>
         );
@@ -95,7 +110,9 @@ class Login extends React.Component {
 }
 
 const mapStateToProps = state => {
+
     return {
+        loginError: state.authentication.error,
         initialValues: {
             username: state.registration.username,
             password: state.registration.password
@@ -105,4 +122,7 @@ const mapStateToProps = state => {
 
 
 Login = reduxForm({form: 'loginForm'})(Login);
-export default connect(mapStateToProps, {clearRecentRegistration, signIn})(Login);
+export default connect(
+    mapStateToProps,
+    {clearRecentRegistration, signIn, acknowledgeSignInError}
+)(Login);

@@ -7,7 +7,7 @@ import {
     FETCH_POSTS,
     SIGN_IN,
     SIGN_OUT,
-    SIGN_UP
+    SIGN_UP, SIGN_IN_ERROR, SIGN_IN_ERROR_ACK
 } from "./types";
 
 export const signIn = formValues => async dispatch => {
@@ -19,7 +19,7 @@ export const signIn = formValues => async dispatch => {
         localStorage.setItem('token', response.data);
         dispatch({type: SIGN_IN, payload: response.data});
     } catch (e) {
-        console.log('Login issue!')
+        dispatch({type: SIGN_IN_ERROR})
     }
 }
 
@@ -55,12 +55,12 @@ export const fetchClient = () => async dispatch => {
 }
 
 export const fetchPosts = () => async dispatch => {
-    try{
-        const response = await social.get('/api/posts',{
+    try {
+        const response = await social.get('/api/posts', {
             headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
         });
         dispatch({type: FETCH_POSTS, payload: response.data});
-    }catch(e){
+    } catch (e) {
         dispatch(signOut());
     }
 }
@@ -91,8 +91,8 @@ export const addPost = content => async dispatch => {
 }
 
 export const likePost = postID => async dispatch => {
-    try{
-        await social.post(`/api/posts/${postID}/like`,null,{
+    try {
+        await social.post(`/api/posts/${postID}/like`, null, {
             headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
         });
         dispatch(fetchPosts());
@@ -101,4 +101,10 @@ export const likePost = postID => async dispatch => {
         dispatch(signOut());
     }
 }
+
+export const acknowledgeSignInError = () => {
+    return {type: SIGN_IN_ERROR_ACK};
+}
+
+
 
