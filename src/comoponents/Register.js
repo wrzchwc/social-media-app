@@ -1,8 +1,8 @@
 import React from "react";
 import {connect} from "react-redux";
 import {Field, reduxForm} from "redux-form";
-import {signUp} from "../actions";
-import {Button, Grid, TextField, Typography} from "@mui/material";
+import {signUp, acknowledgeSignUpError} from "../actions";
+import {Alert, Button, Collapse, Grid, TextField, Typography} from "@mui/material";
 import {Link, useNavigate} from "react-router-dom";
 
 
@@ -51,6 +51,7 @@ class Register extends React.Component {
                     justifyContent={"center"}
                     alignItems={"center"}
                     direction={"column"}
+                    spacing={1}
                 >
                     <Grid item>
                         <Typography variant={"h3"}>REGISTER</Typography>
@@ -113,7 +114,20 @@ class Register extends React.Component {
                             Register
                         </Button>
                     </Grid>
-
+                    <Grid item>
+                        <Collapse in={this.props.registrationError} style={{marginTop: "1em"}}>
+                            <Alert
+                                closeText={'Try again or log in'}
+                                onClose={() => {
+                                    this.props.acknowledgeSignUpError();
+                                }}
+                                severity="error"
+                                variant={"filled"}
+                            >
+                                Username already in use!
+                            </Alert>
+                        </Collapse>
+                    </Grid>
                 </Grid>
             </Grid>
         );
@@ -159,6 +173,15 @@ const validateAll = (values, props) => {
     return validation;
 }
 
+const mapStateToProps = state =>{
+    return{
+        registrationError:  state.registration.error
+    }
+}
+
 Register = reduxForm({form: 'registerForm', validate: validateAll})(Register);
-Register = connect(null, {signUp})(Register);
+Register = connect(
+    mapStateToProps,
+    {signUp, acknowledgeSignUpError}
+)(Register);
 export default withRouter(Register);

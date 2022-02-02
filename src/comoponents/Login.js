@@ -110,7 +110,6 @@ class Login extends React.Component {
 }
 
 const mapStateToProps = state => {
-
     return {
         loginError: state.authentication.error,
         initialValues: {

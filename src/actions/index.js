@@ -7,7 +7,7 @@ import {
     FETCH_POSTS,
     SIGN_IN,
     SIGN_OUT,
-    SIGN_UP, SIGN_IN_ERROR, SIGN_IN_ERROR_ACK
+    SIGN_UP, SIGN_IN_ERROR, SIGN_IN_ERROR_ACK, SIGN_UP_ERROR, SIGN_UP_ERROR_ACK
 } from "./types";
 
 export const signIn = formValues => async dispatch => {
@@ -39,7 +39,7 @@ export const signUp = (formValues, callback) => async dispatch => {
         dispatch({type: SIGN_UP, payload: {username: formValues.username, password: formValues.password}});
         callback();
     } catch (e) {
-        console.log('Registration issue!')
+        dispatch({type: SIGN_UP_ERROR});
     }
 }
 
@@ -104,6 +104,10 @@ export const likePost = postID => async dispatch => {
 
 export const acknowledgeSignInError = () => {
     return {type: SIGN_IN_ERROR_ACK};
+}
+
+export const acknowledgeSignUpError = () => {
+    return {type: SIGN_UP_ERROR_ACK}
 }
 
 
