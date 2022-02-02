@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {connect} from "react-redux";
 import {signOut, fetchClient} from "../../actions";
 import {Link} from 'react-router-dom';
-import {Avatar, Button, Dialog, DialogContent, IconButton, Stack} from "@mui/material";
+import {Avatar, Button, IconButton, Stack} from "@mui/material";
 import LogoutIcon from '@mui/icons-material/Logout';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import getInitials from "../../util/initials";
@@ -12,6 +12,7 @@ import PostAdd from "../../comoponents/posts/PostAdd";
 const UserButtons = props => {
     const theme = useTheme();
     const [open, setOpen] = useState(false);
+    const [touched, setTouched] = useState(false);
 
     useEffect(() => {
         props.fetchClient();
@@ -19,6 +20,7 @@ const UserButtons = props => {
 
     const onClose = () => {
         setOpen(false);
+        setTouched(false);
     }
 
     return (
@@ -60,7 +62,7 @@ const UserButtons = props => {
                     <LogoutIcon/>
                 </IconButton>
             </Stack>
-            <PostAdd name={props.name} open={open} onClose={onClose}/>
+            <PostAdd name={props.name} open={open} onClose={onClose} setTouched={setTouched} touched={touched}/>
         </>
     );
 }

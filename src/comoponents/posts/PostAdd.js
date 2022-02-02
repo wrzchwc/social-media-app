@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
 import {addPost} from "../../actions";
 import {Button, Dialog, DialogContent, Grid, TextField, Typography} from "@mui/material";
@@ -7,6 +7,16 @@ import CancelIcon from '@mui/icons-material/Cancel';
 
 const PostAdd = props => {
     const [content, setContent] = useState('');
+    const [contentHelper, setContentHelper] = useState('');
+
+
+    useEffect(() => {
+        if (props.touched && content.length === 0) {
+            setContentHelper('Enter post content');
+        } else {
+            setContentHelper('');
+        }
+    }, [content, content.length, props.touched]);
 
     return (
         <Dialog
@@ -31,11 +41,14 @@ const PostAdd = props => {
                             <TextField
                                 autoComplete={"off"}
                                 color={"primary"}
+                                error={props.touched && content.length === 0}
                                 fullWidth
+                                helperText={contentHelper}
                                 id={"content"}
                                 margin={"dense"}
                                 multiline
                                 onChange={event => {
+                                    props.setTouched(true);
                                     setContent(event.target.value);
                                 }}
                                 placeholder={`What's on your mind ${props.name}?`}
@@ -49,8 +62,9 @@ const PostAdd = props => {
                         <Grid item container alignItems={"center"} justifyContent={"center"} spacing={3}>
                             <Grid item>
                                 <Button
+                                    disabled={content.length === 0}
                                     endIcon={<PostAddIcon/>}
-                                    onClick={()=>{
+                                    onClick={() => {
                                         props.addPost(content);
                                         setContent('');
                                         props.onClose();
