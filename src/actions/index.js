@@ -32,7 +32,7 @@ export const signUp = (formValues, callback) => async dispatch => {
                 password: formValues.password,
                 name: formValues.name,
                 surname: formValues.surname,
-                dateOfBirth: formValues.birthdate,
+                dateOfBirth: new Date(Date.parse(formValues.birthdate)).toJSON(),
                 email: formValues.email
             }
         );

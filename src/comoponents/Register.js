@@ -7,7 +7,10 @@ import {Link, useNavigate} from "react-router-dom";
 
 
 class Register extends React.Component {
-    state = {birthdate: null};
+    state = {
+        birthdate: null,
+        invalid: true
+    };
 
     onSubmit = (formValues) => {
         this.props.signUp(formValues, () => {
@@ -16,13 +19,19 @@ class Register extends React.Component {
     }
 
     renderInput(props) {
+        let {error, touched} = props.meta;
+        let {label} = props;
+        const helperText = error && touched ? `${error} ${label ? label : 'birthdate'}` : null;
         return (
             <div>
                 <TextField
                     {...props.input}
                     autoComplete="off"
                     color={"primary"}
+                    error={props.meta.error && props.meta.touched}
                     fullWidth
+                    inputProps={props.inputProps}
+                    helperText={helperText}
                     id={props.placeholder}
                     label={props.label}
                     margin={"dense"}
@@ -86,13 +95,15 @@ class Register extends React.Component {
                             <Field
                                 component={this.renderInput}
                                 name="birthdate"
-                                type={"datetime-local"}
+                                inputProps={{max: new Date().toISOString().substring(0, 10)}}
+                                type={"date"}
                             />
                         </form>
                     </Grid>
                     <Grid item>
                         <Button
                             component={Link}
+                            disabled={this.props.invalid}
                             size={"large"}
                             variant={"contained"}
                             onClick={this.props.handleSubmit(this.onSubmit)}
@@ -114,6 +125,40 @@ const withRouter = WrappedComponent => props => {
     return (<WrappedComponent {...props} navigate={navigate}/>);
 };
 
-Register = reduxForm({form: 'registerForm'})(Register);
+const validateAll = (values, props) => {
+    let validation = {};
+    const instruction = 'Enter';
+    let regex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+
+    if (!values.username) {
+        validation['username'] = instruction;
+    }
+
+    if (!values.password) {
+        validation['password'] = instruction;
+    }
+
+    if (!values.name) {
+        validation['name'] = instruction;
+    }
+
+    if (!values.surname) {
+        validation['surname'] = instruction;
+    }
+
+    if (!values.birthdate) {
+        validation['birthdate'] = 'Select';
+    }
+
+    if (!values.email) {
+        validation['email'] = instruction;
+    } else if (!regex.test(values.email)) {
+        validation['email'] = `${instruction} valid`;
+    }
+
+    return validation;
+}
+
+Register = reduxForm({form: 'registerForm', validate: validateAll})(Register);
 Register = connect(null, {signUp})(Register);
 export default withRouter(Register);

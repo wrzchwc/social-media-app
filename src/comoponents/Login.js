@@ -38,7 +38,6 @@ class Login extends React.Component {
     }
 
     validate = (value, allValues) => {
-        console.log(Object.values(allValues).some(v => v === ''))
         this.setState({valid: Object.values(allValues).some(v => v === '')});
         return value ? undefined : 'error';
     }
