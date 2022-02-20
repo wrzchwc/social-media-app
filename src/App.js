@@ -1,10 +1,9 @@
 import React from "react";
 import {connect} from "react-redux";
-import {BrowserRouter, Navigate, Route, Routes, useNavigate} from "react-router-dom";
+import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import theme from "./ui/Theme"
 import Header from "./ui/header/Header";
 import Login from "./comoponents/Login";
-import PostAdd from "./comoponents/posts/PostAdd";
 import Wall from "./comoponents/posts/Wall";
 import HomePage from "./comoponents/HomePage"
 import Register from "./comoponents/Register";

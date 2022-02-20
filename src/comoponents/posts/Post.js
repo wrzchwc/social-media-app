@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from "react-redux";
 import {likePost} from "../../actions";
 import {Grid, IconButton, TextField, Typography} from "@mui/material";
-import {makeStyles, useTheme} from "@mui/styles";
+import {makeStyles} from "@mui/styles";
 import EditAttributesIcon from '@mui/icons-material/EditAttributes';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
