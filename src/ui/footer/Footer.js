@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import {makeStyles} from "@mui/styles";
 import {Button, Grid, Typography} from "@mui/material";
 import GitHubIcon from '@mui/icons-material/GitHub';
