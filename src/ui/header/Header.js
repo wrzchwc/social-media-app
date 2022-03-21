@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
-import {AppBar, Toolbar, Typography, useScrollTrigger} from "@mui/material";
-import {makeStyles} from "@mui/styles";
+import {AppBar, Toolbar, Typography, useMediaQuery, useScrollTrigger} from "@mui/material";
+import {makeStyles, useTheme} from "@mui/styles";
 import {Link} from "react-router-dom";
 import UserButtons from "./UserButtons";
 import GuestButtons from "./GuestButtons";
@@ -28,25 +28,30 @@ const useStyles = makeStyles(theme => ({
     },
     toolbarMargin: {
         ...theme.mixins.toolbar,
-        marginBottom: "1em"
+        marginBottom: "1em",
+        [theme.breakpoints.down('sm')]:{
+            marginBottom: 0
+        }
     }
 }))
 
 const Header = ({isSignedIn}) => {
     const classes = useStyles();
     const buttons = isSignedIn ? <UserButtons classes={classes}/> : <GuestButtons classes={classes}/>
+    const theme = useTheme();
+    const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
 
     return (
         <>
             <ElevationScroll>
                 <AppBar position="fixed">
-                    <Toolbar sx={{height: "5em"}}>
+                    <Toolbar sx={{height: matchesSM ? '4em' : '5em'}}>
                         <Typography
                             color="secondary"
                             component={Link}
                             sx={{
                                 fontFamily: "'Licorice', cursive",
-                                fontSize: "3em",
+                                fontSize: matchesSM ? "1.5em" : "3em",
                                 textDecoration: "none",
                             }}
                             to="/"

@@ -1,6 +1,6 @@
 import React from 'react';
-import {makeStyles} from "@mui/styles";
-import {Button, Grid, Typography} from "@mui/material";
+import {makeStyles, useTheme} from "@mui/styles";
+import {Button, Grid, Typography, useMediaQuery} from "@mui/material";
 import GitHubIcon from '@mui/icons-material/GitHub';
 import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 import EmailIcon from '@mui/icons-material/Email';
@@ -17,6 +17,9 @@ const useStyles = makeStyles(theme => ({
         height: "5em",
         position: "relative",
         width: "100%",
+        [theme.breakpoints.down('sm')]: {
+            height: '4em'
+        }
     },
     gridItem: {
         margin: "3em"
@@ -25,6 +28,8 @@ const useStyles = makeStyles(theme => ({
 
 export const Footer = () => {
     const classes = useStyles();
+    const theme = useTheme();
+    const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
     const cityLink = "https://en.wikipedia.org/wiki/Wroc%C5%82aw";
 
     return (
@@ -41,14 +46,24 @@ export const Footer = () => {
                 <Grid item>
                     <Grid container>
                         <Grid item>
-                            <Button color={"secondary"} endIcon={<HelpCenterIcon/>} sx={{textTransform: "none"}}
-                                    variant={"text"}>
+                            <Button
+                                color={"secondary"}
+                                endIcon={<HelpCenterIcon/>}
+                                sx={{textTransform: "none"}}
+                                variant={"text"}
+                                size={matchesSM ? 'small' : undefined}
+                            >
                                 Help
                             </Button>
                         </Grid>
                         <Grid item>
-                            <Button color={"secondary"} endIcon={<EmailIcon/>} sx={{textTransform: "none"}}
-                                    variant={"text"}>
+                            <Button
+                                color={"secondary"}
+                                endIcon={<EmailIcon/>}
+                                sx={{textTransform: "none"}}
+                                variant={"text"}
+                                size={matchesSM ? 'small' : undefined}
+                            >
                                 Contact
                             </Button>
                         </Grid>
@@ -60,6 +75,7 @@ export const Footer = () => {
                                 href={"https://github.com/wrzchwc/social-media-app"}
                                 sx={{textTransform: "none"}}
                                 variant={"text"}
+                                size={matchesSM ? 'small' : undefined}
                             >
                                 GitHub
                             </Button>
