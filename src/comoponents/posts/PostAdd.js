@@ -4,10 +4,15 @@ import {addPost} from "../../actions";
 import {Button, Dialog, DialogContent, Grid, TextField, Typography} from "@mui/material";
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import CancelIcon from '@mui/icons-material/Cancel';
+import {useTheme} from "@mui/styles";
+import {useMediaQuery} from "@mui/material";
 
 const PostAdd = props => {
     const [content, setContent] = useState('');
     const [contentHelper, setContentHelper] = useState('');
+    const theme = useTheme();
+    const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
+    const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
 
 
     useEffect(() => {
@@ -22,10 +27,13 @@ const PostAdd = props => {
         <Dialog
             open={props.open}
             onClose={props.onClose}
-            PaperProps={{style: {padding: "2em 0 2em 0", maxWidth: "90em"}}}
+            PaperProps={{style: {padding: "2em 0 2em 0"}}}
+            maxWidth={'md'}
+            fullWidth
+            fullScreen={matchesSM}
         >
             <DialogContent>
-                <Grid container>
+                <Grid container style={{height: '100%'}}>
                     <Grid
                         item
                         container
@@ -35,9 +43,9 @@ const PostAdd = props => {
                         spacing={2}
                     >
                         <Grid item>
-                            <Typography variant={"h3"}>NEW POST</Typography>
+                            <Typography variant={matchesSM ? 'h4' : 'h3'}>NEW POST</Typography>
                         </Grid>
-                        <Grid item style={{minWidth: "45em"}}>
+                        <Grid item container>
                             <TextField
                                 autoComplete={"off"}
                                 color={"primary"}
@@ -52,7 +60,7 @@ const PostAdd = props => {
                                     setContent(event.target.value);
                                 }}
                                 placeholder={`What's on your mind ${props.name}?`}
-                                rows={5}
+                                rows={matchesSM ? 9 : 6}
                                 variant={"outlined"}
                                 value={content}
                                 type={"text"}
@@ -70,6 +78,8 @@ const PostAdd = props => {
                                         props.onClose();
                                     }}
                                     variant={"contained"}
+                                    size={matchesSM ? 'small' : matchesMD ? 'medium' : 'large'}
+                                    style={{color: theme.palette.common.cyan}}
                                 >
                                     ADD
                                 </Button>
@@ -83,6 +93,8 @@ const PostAdd = props => {
                                         props.onClose();
                                     }}
                                     variant={"contained"}
+                                    size={matchesSM ? 'small' : matchesMD ? 'medium' : 'large'}
+                                    style={{color: theme.palette.common.violet}}
                                 >
                                     CANCEL
                                 </Button>

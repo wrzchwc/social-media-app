@@ -173,9 +173,9 @@ const validateAll = (values, props) => {
     return validation;
 }
 
-const mapStateToProps = state =>{
-    return{
-        registrationError:  state.registration.error
+const mapStateToProps = state => {
+    return {
+        registrationError: state.registration.error
     }
 }
 

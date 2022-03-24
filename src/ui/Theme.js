@@ -29,6 +29,10 @@ export default createTheme({
         h3:  {
             color: socialViolet,
             fontWeight: 250
+        },
+        h4: {
+            color: socialViolet,
+            fontWeight: 250
         }
     }
 });
