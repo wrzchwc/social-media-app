@@ -77,13 +77,13 @@ export const signOut = () => dispatch => {
 
 export const addPost = content => async dispatch => {
     try {
-        const response = await social.post('/api/posts',
+        await social.post('/api/posts',
             {content: content},
             {
                 headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
             }
         );
-        dispatch({type: ADD_POST, payload: response.data})
+        dispatch({type: ADD_POST})
     } catch (e) {
         console.log('Post addition error!');
         dispatch(signOut());
